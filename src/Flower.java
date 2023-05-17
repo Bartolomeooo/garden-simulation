@@ -1,5 +1,5 @@
 public abstract class Flower {
-    private int hp;
+    private int hp = 100;
     private float hydration;
     private boolean hasInsects;
     private boolean hasWeeds;
@@ -7,4 +7,9 @@ public abstract class Flower {
     public int getHp() {
         return hp;
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+    public void updateHp() {}
 }

@@ -1,3 +1,5 @@
-public class RedFlower {
-    public void updateHp() {}
+public class RedFlower extends Flower {
+    public void updateHp() {
+        setHp(getHp() - 3);
+    }
 }
