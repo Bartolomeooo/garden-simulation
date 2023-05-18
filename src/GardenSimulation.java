@@ -11,8 +11,18 @@ public class GardenSimulation {
             garden.print();
 
             gardener.move(garden.getSizeX(), garden.getSizeY());
+            sleep(500);
 
             System.out.println();
+        }
+    }
+
+    public static void sleep(int millis)
+    {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
