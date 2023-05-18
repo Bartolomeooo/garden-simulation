@@ -11,5 +11,14 @@ public abstract class Flower {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public float getHydration() {
+        return hydration;
+    }
+    public void setHydration(float hydration) {
+        this.hydration = hydration;
+    }
+
     public void updateHp() {}
+
 }

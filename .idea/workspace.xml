@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05d175f5-d365-48ee-ab37-355ba8ce5aff" name="Changes" comment="Add GardenSimulation, Garden, Gardener, Flower, BlueFlower, RedFlower, YellowFlower">
+    <list default="true" id="05d175f5-d365-48ee-ab37-355ba8ce5aff" name="Changes" comment="Add Garden functionality and test attributes in other classes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BlueFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlueFlower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Flower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Flower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Garden.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Garden.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GardenSimulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GardenSimulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gardener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gardener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RedFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RedFlower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/YellowFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/YellowFlower.java" afterDir="false" />
     </list>
@@ -90,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684273392835</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add Garden functionality and test attributes in other classes">
+      <created>1684285721745</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1684285721745</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +118,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create project" />
     <MESSAGE value="Add GardenSimulation, Garden, Gardener, Flower, BlueFlower, RedFlower, YellowFlower" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add GardenSimulation, Garden, Gardener, Flower, BlueFlower, RedFlower, YellowFlower" />
+    <MESSAGE value="Add Garden functionality and test attributes in other classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Garden functionality and test attributes in other classes" />
   </component>
 </project>
