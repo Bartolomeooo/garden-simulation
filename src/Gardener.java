@@ -94,4 +94,19 @@ public class Gardener {
         //debug
         System.out.println(verticalDirection + ", " + horizontalDirection + " [" + posX + "," + posY + "]");
     }
+
+    public void print(int maxX, int maxY)
+    {
+        for(int x = 0; x < maxX; x++)
+        {
+            for(int y = 0; y < maxY; y++)
+            {
+                if(x == posX && y == posY)
+                    System.out.printf("O");
+                else
+                    System.out.printf(".");
+            }
+            System.out.println();
+        }
+    }
 }

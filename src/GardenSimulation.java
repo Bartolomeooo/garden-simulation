@@ -11,6 +11,7 @@ public class GardenSimulation {
             garden.print();
 
             gardener.move(garden.getSizeX(), garden.getSizeY());
+            gardener.print(garden.getSizeX(), garden.getSizeY());
             sleep(500);
 
             System.out.println();
