@@ -19,6 +19,14 @@ public abstract class Flower {
         this.hydration = hydration;
     }
 
+    public boolean getHasInsects() {
+        return hasInsects;
+    }
+
+    public void setHasInsects(boolean hasInsects) {
+        this.hasInsects = hasInsects;
+    }
+
     public void updateHp() {}
 
 }

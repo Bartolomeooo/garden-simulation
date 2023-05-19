@@ -55,6 +55,33 @@ public class Garden {
         }
     }
 
+    public void insertInsect(double probabilityOfInsectAppearance) {
+        Random random = new Random();
+        double randomValue = random.nextDouble();
+
+        int positionX = 0;
+        int positionY = 0;
+
+        if(randomValue <= probabilityOfInsectAppearance) {
+            positionX += random.nextInt(sizeX);
+            positionY += random.nextInt(sizeY);
+            if(flowers[positionX][positionY] != null) flowers[positionX][positionY].setHasInsects(true);
+        }
+    }
+
+    public void printInsects() {
+        for(int x = 0; x < sizeX; x++) {
+            for(int y = 0; y < sizeY; y++) {
+                if(flowers[x][y] != null) {
+                    if(flowers[x][y].getHasInsects()) System.out.print("I ");
+                    else System.out.print("F ");
+                }
+                else System.out.print(". ");
+            }
+            System.out.println();
+        }
+    }
+
     public void update() {
         for(int x = 0; x < sizeX; x++) {
             for(int y = 0; y < sizeY; y++) {

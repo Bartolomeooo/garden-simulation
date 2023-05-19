@@ -7,12 +7,14 @@ public class GardenSimulation {
 
         for(int i = 0; i < 250; i++) {
             System.out.println(i + 1);
-            // garden.update();
-            // garden.print();
+            garden.insertInsect(0.5);
+            garden.printInsects();
+            //garden.update();
+            //garden.print();
 
-            // gardener.move(garden.getSizeX(), garden.getSizeY());
-            gardener.moveRandomly(garden);
-            gardener.print(garden.getSizeX(), garden.getSizeY());
+            //gardener.move(garden.getSizeX(), garden.getSizeY());
+            //gardener.moveRandomly(garden);
+            //gardener.print(garden.getSizeX(), garden.getSizeY());
             sleep(500);
 
             System.out.println();
