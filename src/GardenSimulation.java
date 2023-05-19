@@ -7,9 +7,12 @@ public class GardenSimulation {
 
         for(int i = 0; i < 250; i++) {
             System.out.println(i + 1);
-            garden.insertInsect(0.5);
-            garden.printInsects();
-            //garden.update();
+            //garden.insertInsect(0.5);
+            //garden.printInsects();
+
+            garden.update();
+            gardener.update(garden);
+            gardener.printHp(garden);
             //garden.print();
 
             //gardener.move(garden.getSizeX(), garden.getSizeY());

@@ -96,24 +96,13 @@ public class Gardener {
         positionY += displacementY;
     }
 
-    public void print(int maxX, int maxY) {
-        for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < maxY; y++) {
-                if (x == positionX && y == positionY)
-                    System.out.print("O ");
-                else
-                    System.out.print(". ");
-            }
-            System.out.println();
-        }
-    }
-
     public void update(Garden garden) {
         if(actionTimer > 0) {
             actionTimer--;
         } else {
             move(garden.getSizeX(), garden.getSizeY());
-            actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); //how much time (ticks) gardener needs to heal a flower
+            if(garden.getFlowers()[positionX][positionY] != null)
+                actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); //how much time (ticks) gardener needs to heal a flower
         }
     }
 
@@ -140,5 +129,33 @@ public class Gardener {
         }
 
         return 0;
+    }
+
+    public void print(int maxX, int maxY) {
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < maxY; y++) {
+                if (x == positionX && y == positionY)
+                    System.out.print("O ");
+                else
+                    System.out.print(". ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void printHp(Garden garden) {
+        for (int x = 0; x < garden.getSizeX(); x++) {
+            for (int y = 0; y < garden.getSizeY(); y++) {
+                if (x == positionX && y == positionY)
+                    System.out.printf("%4s", "▨");
+                else {
+                    if(garden.getFlowers()[x][y] == null)
+                        System.out.printf("%4s", "X");
+                    else
+                        System.out.printf("%4d", garden.getFlowers()[x][y].getHp());
+                }
+            }
+            System.out.println();
+        }
     }
 }
