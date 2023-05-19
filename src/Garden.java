@@ -3,12 +3,12 @@ import java.util.Random;
 public class Garden {
     private int sizeX;
     private int sizeY;
-    private final Flower[][] map;
+    private final Flower[][] flowers;
 
     public Garden(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        map = new Flower[sizeX][sizeY];
+        flowers = new Flower[sizeX][sizeY];
     }
 
     public int getSizeX() {
@@ -19,21 +19,21 @@ public class Garden {
         return sizeY;
     }
 
-    public Flower[][] getMap() {
-        return map;
+    public Flower[][] getFlowers() {
+        return flowers;
     }
 
     public void initialize(int redFlowerRatio, int yellowFlowerRatio, int blueFlowerRatio, int emptySpaceRatio) {
         Random random = new Random();
         double denominator = redFlowerRatio + yellowFlowerRatio + blueFlowerRatio + emptySpaceRatio;
         for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeX; y++) {
+            for(int y = 0; y < sizeY; y++) {
                 double randomValue = random.nextDouble();
 
-                if(randomValue <= redFlowerRatio / denominator) map[x][y] = new RedFlower();
-                else if(randomValue <= (redFlowerRatio + yellowFlowerRatio) / denominator) map[x][y] = new YellowFlower();
-                else if(randomValue <= (redFlowerRatio + yellowFlowerRatio + blueFlowerRatio) / denominator) map[x][y] = new BlueFlower();
-                else map[x][y] = null;
+                if(randomValue <= redFlowerRatio / denominator) flowers[x][y] = new RedFlower();
+                else if(randomValue <= (redFlowerRatio + yellowFlowerRatio) / denominator) flowers[x][y] = new YellowFlower();
+                else if(randomValue <= (redFlowerRatio + yellowFlowerRatio + blueFlowerRatio) / denominator) flowers[x][y] = new BlueFlower();
+                else flowers[x][y] = null;
             }
         }
     }
@@ -41,11 +41,11 @@ public class Garden {
     public void print() {
         for(int x = 0; x < sizeX; x++) {
             for(int y = 0; y < sizeY; y++) {
-                if (map[x][y] instanceof RedFlower) {
+                if (flowers[x][y] instanceof RedFlower) {
                     System.out.print("R ");
-                } else if (map[x][y] instanceof YellowFlower) {
+                } else if (flowers[x][y] instanceof YellowFlower) {
                     System.out.print("Y ");
-                } else if (map[x][y] instanceof BlueFlower) {
+                } else if (flowers[x][y] instanceof BlueFlower) {
                     System.out.print("B ");
                 } else {
                     System.out.print("X ");
@@ -58,9 +58,9 @@ public class Garden {
     public void update() {
         for(int x = 0; x < sizeX; x++) {
             for(int y = 0; y < sizeY; y++) {
-                if(map[x][y] != null) {
-                    map[x][y].updateHp();
-                    if(map[x][y].getHp() <= 0) map[x][y] = null;
+                if(flowers[x][y] != null) {
+                    flowers[x][y].updateHp();
+                    if(flowers[x][y].getHp() <= 0) flowers[x][y] = null;
                 }
             }
         }

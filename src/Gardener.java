@@ -1,110 +1,89 @@
 public class Gardener {
-    private int posX;
-    private int posY;
+    private int positionX;
+    private int positionY;
     private String horizontalDirection;
     private String verticalDirection;
 
-    public Gardener()
-    {
-        posX = 0;
-        posY = 0;
+    public Gardener() {
+        positionX = 0;
+        positionY = 0;
         horizontalDirection = "Right";
         verticalDirection = "Forward";
     }
 
-    public void move(int maxX, int maxY)
-    {
-        if(verticalDirection.equals("Forward"))
-        {
-            if(horizontalDirection.equals("Right")) //going forward right
-            {
-                if(posY + 1 == maxY) //out of range Y
-                {
-                    if(posX + 1 == maxX) //out of range X and Y [maxX, maxY]
-                    {
+    public void move(int maxX, int maxY) {
+        if(verticalDirection.equals("Forward")) {
+            if(horizontalDirection.equals("Right")) { // Going forward right
+                if(positionY + 1 == maxY) { // Out of range Y
+                    if(positionX + 1 == maxX) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
-                        posY--;
+                        positionY--;
                     }
                     else
-                        posX++;
+                        positionX++;
 
                     horizontalDirection = "Left";
                 }
                 else
-                    posY++;
-
+                    positionY++;
             }
-            else //going forward left
-            {
-                if(posY - 1 < 0) //out of range Y
-                {
-                    if(posX + 1 == maxX) //out of range X and Y [maxX, 0]
-                    {
+            else { // Going forward left
+                if(positionY - 1 < 0) { // Out of range Y
+                    if(positionX + 1 == maxX) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Backwards";
-                        posY++;
+                        positionY++;
                     }
                     else
-                        posX++;
+                        positionX++;
 
                     horizontalDirection = "Right";
                 }
                 else
-                    posY--;
+                    positionY--;
             }
         }
-        else
-        {
-            if(horizontalDirection.equals("Right")) //going backwards right
-            {
-                if(posY + 1 == maxY) //out of range Y
-                {
-                    if(posX - 1 < 0) //out of range X and Y [0, maxY]
-                    {
+        else {
+            if(horizontalDirection.equals("Right")) { // Going backwards right
+                if(positionY + 1 == maxY) { // Out of range Y
+                    if(positionX - 1 < 0) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Forward";
-                        posY--;
+                        positionY--;
                     }
                     else
-                        posX--;
+                        positionX--;
 
                     horizontalDirection = "Left";
                 }
                 else
-                    posY++;
-
+                    positionY++;
             }
-            else //going backwards left
-            {
-                if(posY - 1 < 0) //out of range Y
-                {
-                    if(posX - 1 < 0) //out of range X and Y [0, 0]
-                    {
+            else { // Going backwards left
+                if(positionY - 1 < 0) { // Out of range Y
+                    if(positionX - 1 < 0) { // Out of range X and Y [0, 0]
                         verticalDirection = "Forward";
-                        posY++;
+                        positionY++;
                     }
                     else
-                        posX--;
+                        positionX--;
 
                     horizontalDirection = "Right";
                 }
                 else
-                    posY--;
+                    positionY--;
             }
         }
 
-        //debug
-        System.out.println(verticalDirection + ", " + horizontalDirection + " [" + posX + "," + posY + "]");
+        // Debug
+        System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
     }
 
-    public void print(int maxX, int maxY)
-    {
-        for(int x = 0; x < maxX; x++)
-        {
-            for(int y = 0; y < maxY; y++)
-            {
-                if(x == posX && y == posY)
-                    System.out.printf("O");
+    public void print(int maxX, int maxY) {
+        for(int x = 0; x < maxX; x++) {
+            for(int y = 0; y < maxY; y++) {
+                if(x == positionX && y == positionY)
+                    System.out.print("O ");
                 else
-                    System.out.printf(".");
+                    System.out.print(". ");
             }
             System.out.println();
         }
