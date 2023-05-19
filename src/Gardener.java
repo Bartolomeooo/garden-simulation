@@ -5,6 +5,7 @@ public class Gardener {
     private int positionY;
     private String horizontalDirection;
     private String verticalDirection;
+    private int actionTimer;
 
     public Gardener() {
         positionX = 0;
@@ -14,63 +15,52 @@ public class Gardener {
     }
 
     public void move(int maxX, int maxY) {
-        if(verticalDirection.equals("Forward")) {
-            if(horizontalDirection.equals("Right")) { // Going forward right
-                if(positionY + 1 == maxY) { // Out of range Y
-                    if(positionX + 1 == maxX) { // Out of range X and Y [maxX, maxY]
+        if (verticalDirection.equals("Forward")) {
+            if (horizontalDirection.equals("Right")) { // Going forward right
+                if (positionY + 1 == maxY) { // Out of range Y
+                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
                         positionY--;
-                    }
-                    else
+                    } else
                         positionX++;
 
                     horizontalDirection = "Left";
-                }
-                else
+                } else
                     positionY++;
-            }
-            else { // Going forward left
-                if(positionY - 1 < 0) { // Out of range Y
-                    if(positionX + 1 == maxX) { // Out of range X and Y [maxX, 0]
+            } else { // Going forward left
+                if (positionY - 1 < 0) { // Out of range Y
+                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Backwards";
                         positionY++;
-                    }
-                    else
+                    } else
                         positionX++;
 
                     horizontalDirection = "Right";
-                }
-                else
+                } else
                     positionY--;
             }
-        }
-        else {
-            if(horizontalDirection.equals("Right")) { // Going backwards right
-                if(positionY + 1 == maxY) { // Out of range Y
-                    if(positionX - 1 < 0) { // Out of range X and Y [0, maxY]
+        } else {
+            if (horizontalDirection.equals("Right")) { // Going backwards right
+                if (positionY + 1 == maxY) { // Out of range Y
+                    if (positionX - 1 < 0) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Forward";
                         positionY--;
-                    }
-                    else
+                    } else
                         positionX--;
 
                     horizontalDirection = "Left";
-                }
-                else
+                } else
                     positionY++;
-            }
-            else { // Going backwards left
-                if(positionY - 1 < 0) { // Out of range Y
-                    if(positionX - 1 < 0) { // Out of range X and Y [0, 0]
+            } else { // Going backwards left
+                if (positionY - 1 < 0) { // Out of range Y
+                    if (positionX - 1 < 0) { // Out of range X and Y [0, 0]
                         verticalDirection = "Forward";
                         positionY++;
-                    }
-                    else
+                    } else
                         positionX--;
 
                     horizontalDirection = "Right";
-                }
-                else
+                } else
                     positionY--;
             }
         }
@@ -90,7 +80,7 @@ public class Gardener {
         int displacementX;
         int displacementY;
 
-        if(isFirstTick) {
+        if (isFirstTick) {
             isFirstTick = false;
             return;
         }
@@ -100,21 +90,55 @@ public class Gardener {
             displacementX = random.nextInt(3) - 1;
             displacementY = random.nextInt(3) - 1;
         }
-        while(isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSizeX(), garden.getSizeY()) || (displacementX == 0 && displacementY == 0));
+        while (isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSizeX(), garden.getSizeY()) || (displacementX == 0 && displacementY == 0));
 
         positionX += displacementX;
         positionY += displacementY;
     }
 
     public void print(int maxX, int maxY) {
-        for(int x = 0; x < maxX; x++) {
-            for(int y = 0; y < maxY; y++) {
-                if(x == positionX && y == positionY)
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < maxY; y++) {
+                if (x == positionX && y == positionY)
                     System.out.print("O ");
                 else
                     System.out.print(". ");
             }
             System.out.println();
         }
+    }
+
+    public void update(Garden garden) {
+        if(actionTimer > 0) {
+            actionTimer--;
+        } else {
+            move(garden.getSizeX(), garden.getSizeY());
+            actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); //how much time (ticks) gardener needs to heal a flower
+        }
+    }
+
+    public int water(Garden garden) { //returns how much time gardener needs to water the flower
+        garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration
+        garden.getFlowers()[positionX][positionY].setHp(100); //max hp
+
+        return 1;
+    }
+
+    public int removeInsects(Garden garden) { //returns how much time gardener needs to remove insects from the flower
+        if(garden.getFlowers()[positionX][positionY].getHasInsects()) {
+            garden.getFlowers()[positionX][positionY].setHasInsects(false);
+            return 2;
+        }
+
+        return 0;
+    }
+
+    public int removeWeeds(Garden garden) { //returns how much time gardener needs to remove weeds from the flower
+        if(garden.getFlowers()[positionX][positionY].getHasWeeds()) {
+            garden.getFlowers()[positionX][positionY].setHasWeeds(false);
+            return 3;
+        }
+
+        return 0;
     }
 }
