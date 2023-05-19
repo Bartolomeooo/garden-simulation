@@ -99,6 +99,9 @@ public class Gardener {
     public void update(Garden garden) {
         if(actionTimer > 0) {
             actionTimer--;
+            water(garden);
+            removeInsects(garden);
+            removeWeeds(garden);
         } else {
             move(garden.getSizeX(), garden.getSizeY());
             if(garden.getFlowers()[positionX][positionY] != null)
