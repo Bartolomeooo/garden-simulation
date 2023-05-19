@@ -27,6 +27,14 @@ public abstract class Flower {
         this.hasInsects = hasInsects;
     }
 
+    public boolean getHasWeeds() {
+        return hasWeeds;
+    }
+
+    public void setHasWeeds(boolean hasWeeds) {
+        this.hasWeeds = hasWeeds;
+    }
+
     public void updateHp() {}
 
 }
