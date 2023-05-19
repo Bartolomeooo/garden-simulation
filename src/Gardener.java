@@ -161,4 +161,29 @@ public class Gardener {
             System.out.println();
         }
     }
+
+    public void printInsectsAndWeeds(Garden garden) {
+        for (int x = 0; x < garden.getSizeX(); x++) {
+            for (int y = 0; y < garden.getSizeY(); y++) {
+                if (x == positionX && y == positionY)
+                    System.out.printf("%4s", "▨");
+                else {
+                    if(garden.getFlowers()[x][y] == null)
+                        System.out.printf("%4s", "X");
+                    else {
+                        if(garden.getFlowers()[x][y].getHasInsects() && garden.getFlowers()[x][y].getHasWeeds())
+                            System.out.printf("%4s", "■");
+                        else if(garden.getFlowers()[x][y].getHasInsects())
+                            System.out.printf("%4s", "◧");
+                        else if(garden.getFlowers()[x][y].getHasWeeds())
+                            System.out.printf("%4s", "◨");
+                        else
+                            System.out.printf("%4d", garden.getFlowers()[x][y].getHp());
+                            //System.out.printf("%4s", "□");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
 }
