@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Gardener {
     private int positionX;
     private int positionY;
@@ -75,6 +77,33 @@ public class Gardener {
 
         // Debug
         System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
+    }
+
+    private boolean isOutOfRange(int positionX, int positionY, int maxX, int maxY) {
+        return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
+    }
+
+    private boolean isFirstTick = true;
+
+    public void moveRandomly(Garden garden) {
+        Random random = new Random();
+        int displacementX;
+        int displacementY;
+
+        if(isFirstTick) {
+            isFirstTick = false;
+            return;
+        }
+
+        do {
+            // Displacement varies in the range {-1, 0, 1} on both axes
+            displacementX = random.nextInt(3) - 1;
+            displacementY = random.nextInt(3) - 1;
+        }
+        while(isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSizeX(), garden.getSizeY()) || (displacementX == 0 && displacementY == 0));
+
+        positionX += displacementX;
+        positionY += displacementY;
     }
 
     public void print(int maxX, int maxY) {

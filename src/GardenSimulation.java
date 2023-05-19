@@ -10,7 +10,8 @@ public class GardenSimulation {
             // garden.update();
             // garden.print();
 
-            gardener.move(garden.getSizeX(), garden.getSizeY());
+            // gardener.move(garden.getSizeX(), garden.getSizeY());
+            gardener.moveRandomly(garden);
             gardener.print(garden.getSizeX(), garden.getSizeY());
             sleep(500);
 
