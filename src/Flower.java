@@ -1,6 +1,6 @@
 public abstract class Flower {
     private int hp = 100;
-    private float hydration;
+    private float hydration = 50;
     private boolean hasInsects;
     private boolean hasWeeds;
 
