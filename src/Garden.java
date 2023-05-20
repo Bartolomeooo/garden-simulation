@@ -69,6 +69,47 @@ public class Garden {
         }
     }
 
+    public void insertWeeds(double probabilityOfWeedsAppearance) {
+        Random random = new Random();
+        double randomValue = random.nextDouble();
+
+        int positionX = 0;
+        int positionY = 0;
+
+        if(randomValue <= probabilityOfWeedsAppearance) {
+            positionX += random.nextInt(sizeX);
+            positionY += random.nextInt(sizeY);
+            if(flowers[positionX][positionY] != null) flowers[positionX][positionY].setHasWeeds(true);
+        }
+    }
+
+    private boolean isOutOfRange(int positionX, int positionY, int maxX, int maxY) {
+        return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
+    }
+
+    public void spreadWeeds(double probabilityOfWeedsSpread) {
+        Random random = new Random();
+
+        for(int x = 0; x < sizeX; x++) {
+            for(int y = 0; y < sizeY; y++) {
+                if(flowers[x][y] != null) {
+                    double randomValue = random.nextDouble();
+                    if(flowers[x][y].getHasWeeds() && randomValue <= probabilityOfWeedsSpread) {
+                        int displacementX;
+                        int displacementY;
+
+                        // Displacement varies in the range {-1, 0, 1} on both axes
+                        displacementX = random.nextInt(3) - 1;
+                        displacementY = random.nextInt(3) - 1;
+
+                        if(!isOutOfRange(x + displacementX, y + displacementY, sizeX, sizeY) && flowers[x + displacementX][y + displacementY] != null)
+                            flowers[x + displacementX][y + displacementY].setHasWeeds(true);
+                    }
+                }
+            }
+        }
+    }
+
     public void printInsects() {
         for(int x = 0; x < sizeX; x++) {
             for(int y = 0; y < sizeY; y++) {
