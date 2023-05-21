@@ -4,23 +4,27 @@ public class GardenSimulation {
         garden.initialize(1, 3, 2, 4);
 
         Gardener gardener = new Gardener();
+        gardener.printInsectsAndWeeds(garden);
+        System.out.println();
 
         for(int i = 0; i < 250; i++) {
             System.out.println(i + 1);
-            garden.insertInsect(0.3);
-            //garden.printInsects();
 
             garden.update();
+
+            garden.insertInsect(0.3);
+            garden.insertWeeds(0.3);
+            garden.spreadWeeds(0.05);
+            //garden.printInsects();
+
             gardener.update(garden);
             gardener.printInsectsAndWeeds(garden);
             //gardener.printHp(garden);
             //garden.print();
-
             //gardener.move(garden.getSizeX(), garden.getSizeY());
             //gardener.moveRandomly(garden);
             //gardener.print(garden.getSizeX(), garden.getSizeY());
             sleep(500);
-
             System.out.println();
         }
     }

@@ -104,8 +104,12 @@ public class Gardener {
             removeWeeds(garden);
         } else {
             move(garden.getSizeX(), garden.getSizeY());
-            if(garden.getFlowers()[positionX][positionY] != null)
+            if(garden.getFlowers()[positionX][positionY] != null) {
+                //Debug
+                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
+
                 actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); //how much time (ticks) gardener needs to heal a flower
+            }
         }
     }
 
