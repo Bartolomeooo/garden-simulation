@@ -21,7 +21,8 @@ public class GardenSimulation {
             gardener.printInsectsAndWeeds(garden);
             //gardener.printHp(garden);
             //garden.print();
-            //gardener.move(garden.getSizeX(), garden.getSizeY());
+            //gardener.retractingSnakeMove(garden.getSizeX(), garden.getSizeY());
+            //gardener.turningSnakeMove(garden.getSizeX(), garden.getSizeY());
             //gardener.moveRandomly(garden);
             //gardener.print(garden.getSizeX(), garden.getSizeY());
             sleep(500);
