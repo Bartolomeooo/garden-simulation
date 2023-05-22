@@ -1,11 +1,11 @@
 import java.util.Random;
 
 public class Gardener {
-    private int positionX;
-    private int positionY;
-    private String horizontalDirection;
-    private String verticalDirection;
-    private int actionTimer;
+    protected int positionX;
+    protected int positionY;
+    protected String horizontalDirection;
+    protected String verticalDirection;
+    protected int actionTimer;
 
     public Gardener() {
         positionX = 0;

@@ -3,11 +3,11 @@ public class GardenSimulation {
         Garden garden = new Garden(5, 5);
         garden.initialize(1, 3, 2, 4);
 
-        Gardener gardener = new Gardener();
+        Gardener gardener = new TargetingGardener();
         gardener.printInsectsAndWeeds(garden);
         System.out.println();
 
-        for(int i = 0; i < 250; i++) {
+        for(int i = 0; i < 500; i++) {
             System.out.println(i + 1);
 
             garden.update();
