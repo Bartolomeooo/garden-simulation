@@ -4,7 +4,7 @@ public class BlueFlower extends Flower {
         int damage = 0;
 
         if(getHydration() < 0) setHydration(0);
-        else if(getHydration() == 0) damage += 7;
+        if(getHydration() == 0) damage += 7;
 
         if(getHasInsects()) damage += 1;
 
