@@ -1,8 +1,15 @@
 public abstract class Flower {
-    private int hp = 100;
-    private float hydration = 50;
+    private int hp;
+    private float hydration;
     private boolean hasInsects;
     private boolean hasWeeds;
+
+    public Flower() {
+        hp = 100;
+        hydration = 50;
+        hasInsects = false;
+        hasWeeds = false;
+    }
 
     public int getHp() {
         return hp;
@@ -37,4 +44,7 @@ public abstract class Flower {
 
     public void updateHp() {}
 
+    public int currentDamagePerTick() {
+        return 0;
+    }
 }

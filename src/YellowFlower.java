@@ -12,4 +12,20 @@ public class YellowFlower extends Flower {
 
         setHp(getHp() - damage);
     }
+
+    @Override
+    public int currentDamagePerTick() {
+        int damage = 0;
+
+        if(getHydration() == 0)
+            damage += 5;
+
+        if(getHasInsects())
+            damage += 2;
+
+        if(getHasWeeds())
+            damage += 1;
+
+        return damage;
+    }
 }

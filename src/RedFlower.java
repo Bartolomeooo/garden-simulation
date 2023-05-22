@@ -12,4 +12,20 @@ public class RedFlower extends Flower {
 
         setHp(getHp() - damage);
     }
+
+    @Override
+    public int currentDamagePerTick() {
+        int damage = 0;
+
+        if(getHydration() == 0)
+            damage += 3;
+
+        if(getHasInsects())
+            damage += 2;
+
+        if(getHasWeeds())
+            damage += 2;
+
+        return damage;
+    }
 }
