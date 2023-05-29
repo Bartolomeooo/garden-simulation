@@ -1,50 +1,17 @@
-public abstract class Flower {
-    private int hp;
-    private float hydration;
-    private boolean hasInsects;
-    private boolean hasWeeds;
+public interface Flower {
+    int getHp();
+    void setHp(int hp);
 
-    public Flower() {
-        hp = 100;
-        hydration = 50;
-        hasInsects = false;
-        hasWeeds = false;
-    }
+    float getHydration();
+    void setHydration(float hydration);
 
-    public int getHp() {
-        return hp;
-    }
+    boolean getHasInsects();
+    void setHasInsects(boolean hasInsects);
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
+    boolean getHasWeeds();
+    void setHasWeeds(boolean hasWeeds);
 
-    public float getHydration() {
-        return hydration;
-    }
-    public void setHydration(float hydration) {
-        this.hydration = hydration;
-    }
+    void updateHp();
 
-    public boolean getHasInsects() {
-        return hasInsects;
-    }
-
-    public void setHasInsects(boolean hasInsects) {
-        this.hasInsects = hasInsects;
-    }
-
-    public boolean getHasWeeds() {
-        return hasWeeds;
-    }
-
-    public void setHasWeeds(boolean hasWeeds) {
-        this.hasWeeds = hasWeeds;
-    }
-
-    public void updateHp() {}
-
-    public int currentDamagePerTick() {
-        return 0;
-    }
+    int currentDamagePerTick();
 }
