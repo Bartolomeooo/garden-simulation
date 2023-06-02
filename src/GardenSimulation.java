@@ -1,6 +1,6 @@
 public class GardenSimulation {
     public static void main(String[] args) {
-        Garden garden = new Garden(5, 5);
+        Garden garden = new Garden(13, 13);
         garden.initialize(1, 3, 2, 4);
 
         //Gardener gardener = new PathFollowingGardener();
