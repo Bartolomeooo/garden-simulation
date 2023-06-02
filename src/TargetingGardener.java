@@ -55,7 +55,8 @@ public class TargetingGardener extends Gardener {
 
         if(vector.x == -1) {
             System.out.println("NO FLOWERS IN THE GARDEN");
-            System.exit(0);
+            vector.x = positionX;
+            vector.y = positionY; // Stay
         }
 
         System.out.println("First Flower: [" + vector.x + ", " + vector.y + "]");

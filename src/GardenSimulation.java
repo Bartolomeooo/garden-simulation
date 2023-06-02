@@ -3,9 +3,12 @@ public class GardenSimulation {
         Garden garden = new Garden(5, 5);
         garden.initialize(1, 3, 2, 4);
 
+        //Gardener gardener = new PathFollowingGardener();
         Gardener gardener = new TargetingGardener();
         gardener.printInsectsAndWeeds(garden);
         System.out.println();
+
+        new SimulationFrame(garden, gardener);
 
         for(int i = 0; i < 500; i++) {
             System.out.println(i + 1);
@@ -25,8 +28,7 @@ public class GardenSimulation {
             //gardener.turningSnakeMove(garden.getSizeX(), garden.getSizeY());
             //gardener.moveRandomly(garden);
             //gardener.print(garden.getSizeX(), garden.getSizeY());
-            sleep(500);
-            System.out.println();
+            sleep(700);
         }
     }
 
