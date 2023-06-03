@@ -17,6 +17,22 @@ public class SimulationPanel extends JPanel {
         UNIT_SIZE = SCREEN_WIDTH / garden.getSizeX();
     }
 
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
+
+    public Gardener getGardener() {
+        return gardener;
+    }
+
+    public void setGardener(Gardener gardener) {
+        this.gardener = gardener;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);

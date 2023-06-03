@@ -1,12 +1,17 @@
 import javax.swing.*;
 
 public class SimulationFrame extends JFrame {
-    SimulationFrame(Garden garden, Gardener gardener) {
+    SimulationFrame(Garden garden, Gardener gardener, boolean running) {
         JPanel panel = new JPanel();
-        panel.add(new SettingsPanel(garden, gardener));
-        panel.add(new SimulationPanel(garden,gardener));
+        // Settings Panel
+        SettingsPanel settingsPanel = new SettingsPanel(garden, gardener, running);
+        panel.add(settingsPanel);
+
+        // Graphics panel
+        panel.add(settingsPanel.getSimulationPanel());
         this.add(panel);
 
+        // Frame settings
         this.setTitle("Garden Simulation");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
