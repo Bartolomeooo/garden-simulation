@@ -17,6 +17,8 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final LabeledComponent gardenerMovement;
     private final LabeledComponent showHP;
     private final JButton startStopButton;
+    private String movementText[];
+    private int movementIndex;
     Timer timer;
 
 
@@ -49,7 +51,14 @@ public class SettingsPanel extends JPanel implements ActionListener {
         this.add(flowersRatio);
 
         // Gardener movement setting
-        gardenerMovement = new LabeledComponent("Gardener's movement", new JButton("Target the one with the lowest HP"));
+        movementText = new String[4];
+        movementText[0] = "Target the one with the lowest HP";
+        movementText[1] = "Move randomly";
+        movementText[2] = "Pattern 1";
+        movementText[3] = "Pattern 2";
+
+        movementIndex = 0;
+        gardenerMovement = new LabeledComponent("Gardener's movement", new JButton(movementText[movementIndex]));
         gardenerMovement.resize(250);
         this.add(gardenerMovement);
 
@@ -108,8 +117,21 @@ public class SettingsPanel extends JPanel implements ActionListener {
                         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
                         simulationPanel.getGarden().print(); // Debug
 
-                        // Gardener init TODO: User chooses the movement
-                        simulationPanel.setGardener(new TargetingGardener());
+                        // Gardener init
+                        switch(movementIndex) {
+                            case 0: // "Target the one with the lowest HP"
+                                simulationPanel.setGardener(new TargetingGardener());
+                                break;
+                            case 1: // "Move randomly"
+                                simulationPanel.setGardener(new PathFollowingGardener(1));
+                                break;
+                            case 2: // "Pattern 1"
+                                simulationPanel.setGardener(new PathFollowingGardener(2));
+                                break;
+                            case 3: // "Pattern 2"
+                                simulationPanel.setGardener(new PathFollowingGardener(3));
+                                break;
+                        }
 
                         // Simulation init
                         SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
@@ -131,9 +153,10 @@ public class SettingsPanel extends JPanel implements ActionListener {
             }
         }
 
-        /*if (e.getSource() == gardenerMovement.getComponent()) {  TODO: Make this button functional
-            ((JButton) gardenerMovement.getComponent()).setText();
-        }*/
+        if (e.getSource() == gardenerMovement.getComponent()) {
+            movementIndex = (movementIndex + 1) % 4;
+            ((JButton) gardenerMovement.getComponent()).setText(movementText[movementIndex]);
+        }
 
         simulationPanel.repaint();
     }

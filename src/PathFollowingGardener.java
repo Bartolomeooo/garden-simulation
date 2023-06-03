@@ -3,12 +3,14 @@ import java.util.Random;
 public class PathFollowingGardener extends Gardener {
     private String horizontalDirection;
     private String verticalDirection;
+    private int movementIndex;
 
 
-    public PathFollowingGardener() {
+    public PathFollowingGardener(int movementIndex) {
         super();
         horizontalDirection = "Right";
         verticalDirection = "Forward";
+        this.movementIndex = movementIndex;
     }
 
     public void retractingSnakeMove(int maxX, int maxY) { // - Going the same snake-shaped path
@@ -156,7 +158,18 @@ public class PathFollowingGardener extends Gardener {
             removeInsects(garden);
             removeWeeds(garden);
         } else {
-            retractingSnakeMove(garden.getSizeX(), garden.getSizeY()); // Chosen movement
+            switch(movementIndex){ // Move
+                case 1:
+                    moveRandomly(garden);
+                    break;
+                case 2:
+                    retractingSnakeMove(garden.getSizeX(), garden.getSizeY());
+                    break;
+                case 3:
+                    turningSnakeMove(garden.getSizeX(), garden.getSizeY());
+                    break;
+            }
+
             if(garden.getFlowers()[positionX][positionY] != null) {
                 //Debug
                 System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
