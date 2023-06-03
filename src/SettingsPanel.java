@@ -113,6 +113,11 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
                         // Simulation init
                         SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
+                        if(((JCheckBox) showHP.getComponent()).isSelected())
+                            simulationPanel.setShowHP(true);
+                        else
+                            simulationPanel.setShowHP(false);
+
                         running = true;
                         startStopButton.setText("STOP");
                     } catch (Exception ex) {
@@ -126,7 +131,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
             }
         }
 
-        /*if (e.getSource() == gardenerMovement.getComponent()) {  TODO: Make this button functional + Make "Show HP" functional
+        /*if (e.getSource() == gardenerMovement.getComponent()) {  TODO: Make this button functional
             ((JButton) gardenerMovement.getComponent()).setText();
         }*/
 

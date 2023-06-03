@@ -7,6 +7,7 @@ public class SimulationPanel extends JPanel {
     static int UNIT_SIZE;
     private Garden garden;
     private Gardener gardener;
+    private boolean showHP;
 
     SimulationPanel(Garden garden, Gardener gardener) {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -15,6 +16,7 @@ public class SimulationPanel extends JPanel {
         this.garden = garden;
         this.gardener = gardener;
         UNIT_SIZE = SCREEN_WIDTH / garden.getSizeX();
+        showHP = false;
     }
 
     public Garden getGarden() {
@@ -31,6 +33,10 @@ public class SimulationPanel extends JPanel {
 
     public void setGardener(Gardener gardener) {
         this.gardener = gardener;
+    }
+
+    public void setShowHP(boolean showHP) {
+        this.showHP = showHP;
     }
 
     public void paintComponent(Graphics g) {
@@ -72,7 +78,8 @@ public class SimulationPanel extends JPanel {
                 if(garden.getFlowers()[y][x] != null) {
                     drawWeeds(g, x, y);
                     drawInsects(g, x, y);
-                    drawHp(g, x, y);
+                    if(showHP)
+                        drawHp(g, x, y);
                 }
             }
         }
