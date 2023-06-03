@@ -13,11 +13,11 @@ public class PathFollowingGardener extends Gardener {
         this.movementIndex = movementIndex;
     }
 
-    public void retractingSnakeMove(int maxX, int maxY) { // - Going the same snake-shaped path
+    public void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionY + 1 == maxY) { // Out of range Y
-                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, maxY]
+                if (positionY + 1 == maxIndex) { // Out of range Y
+                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
                         positionY--;
                     } else
@@ -28,7 +28,7 @@ public class PathFollowingGardener extends Gardener {
                     positionY++;
             } else { // Going forward left
                 if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, 0]
+                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Backwards";
                         positionY++;
                     } else
@@ -40,7 +40,7 @@ public class PathFollowingGardener extends Gardener {
             }
         } else {
             if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionY + 1 == maxY) { // Out of range Y
+                if (positionY + 1 == maxIndex) { // Out of range Y
                     if (positionX - 1 < 0) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Forward";
                         positionY--;
@@ -68,11 +68,11 @@ public class PathFollowingGardener extends Gardener {
         System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
     }
 
-    public void turningSnakeMove(int maxX, int maxY) { // - Going the snake-shaped path with a turn (two mirrored paths)
+    public void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionY + 1 == maxY) { // Out of range Y
-                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, maxY]
+                if (positionY + 1 == maxIndex) { // Out of range Y
+                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
                         positionX--; //
                     } else
@@ -83,7 +83,7 @@ public class PathFollowingGardener extends Gardener {
                     positionY++;
             } else { // Going forward left
                 if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX + 1 == maxX) { // Out of range X and Y [maxX, 0]
+                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Backwards";
                         positionX--; //
                     } else
@@ -95,7 +95,7 @@ public class PathFollowingGardener extends Gardener {
             }
         } else {
             if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionY + 1 == maxY) { // Out of range Y
+                if (positionY + 1 == maxIndex) { // Out of range Y
                     if (positionX - 1 < 0) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Forward";
                         positionX++; //
@@ -144,7 +144,7 @@ public class PathFollowingGardener extends Gardener {
             displacementX = random.nextInt(3) - 1;
             displacementY = random.nextInt(3) - 1;
         }
-        while (isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSizeX(), garden.getSizeY()) || (displacementX == 0 && displacementY == 0));
+        while (isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSize(), garden.getSize()) || (displacementX == 0 && displacementY == 0));
 
         positionX += displacementX;
         positionY += displacementY;
@@ -163,10 +163,10 @@ public class PathFollowingGardener extends Gardener {
                     moveRandomly(garden);
                     break;
                 case 2:
-                    retractingSnakeMove(garden.getSizeX(), garden.getSizeY());
+                    retractingSnakeMove(garden.getSize());
                     break;
                 case 3:
-                    turningSnakeMove(garden.getSizeX(), garden.getSizeY());
+                    turningSnakeMove(garden.getSize());
                     break;
             }
 

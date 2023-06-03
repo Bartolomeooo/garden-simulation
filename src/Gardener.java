@@ -51,8 +51,8 @@ public abstract class Gardener {
     }
 
     public void printHp(Garden garden) {
-        for (int x = 0; x < garden.getSizeX(); x++) {
-            for (int y = 0; y < garden.getSizeY(); y++) {
+        for (int x = 0; x < garden.getSize(); x++) {
+            for (int y = 0; y < garden.getSize(); y++) {
                 if (x == positionX && y == positionY)
                     System.out.printf("%4s", "▨");
                 else {
@@ -67,8 +67,8 @@ public abstract class Gardener {
     }
 
     public void printInsectsAndWeeds(Garden garden) {
-        for (int x = 0; x < garden.getSizeX(); x++) {
-            for (int y = 0; y < garden.getSizeY(); y++) {
+        for (int x = 0; x < garden.getSize(); x++) {
+            for (int y = 0; y < garden.getSize(); y++) {
                 if (x == positionX && y == positionY)
                     System.out.printf("%4s", "▨");
                 else {

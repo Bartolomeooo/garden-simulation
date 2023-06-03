@@ -1,22 +1,16 @@
 import java.util.Random;
 
 public class Garden {
-    private int sizeX;
-    private int sizeY;
+    private int size;
     private final Flower[][] flowers;
 
-    public Garden(int sizeX, int sizeY) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        flowers = new Flower[sizeX][sizeY];
+    public Garden(int size) {
+        this.size = size;
+        flowers = new Flower[size][size];
     }
 
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
+    public int getSize() {
+        return size;
     }
 
     public Flower[][] getFlowers() {
@@ -26,8 +20,8 @@ public class Garden {
     public void initialize(int redFlowerRatio, int yellowFlowerRatio, int blueFlowerRatio, int emptySpaceRatio) {
         Random random = new Random();
         double denominator = redFlowerRatio + yellowFlowerRatio + blueFlowerRatio + emptySpaceRatio;
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int x = 0; x < size; x++) {
+            for(int y = 0; y < size; y++) {
                 double randomValue = random.nextDouble();
 
                 if(randomValue <= redFlowerRatio / denominator) flowers[x][y] = new RedFlower();
@@ -39,8 +33,8 @@ public class Garden {
     }
 
     public void print() {
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int x = 0; x < size; x++) {
+            for(int y = 0; y < size; y++) {
                 if (flowers[x][y] instanceof RedFlower) {
                     System.out.print("R ");
                 } else if (flowers[x][y] instanceof YellowFlower) {
@@ -63,8 +57,8 @@ public class Garden {
         int positionY = 0;
 
         if(randomValue <= probabilityOfInsectAppearance) {
-            positionX += random.nextInt(sizeX);
-            positionY += random.nextInt(sizeY);
+            positionX += random.nextInt(size);
+            positionY += random.nextInt(size);
             if(flowers[positionX][positionY] != null) flowers[positionX][positionY].setHasInsects(true);
         }
     }
@@ -77,8 +71,8 @@ public class Garden {
         int positionY = 0;
 
         if(randomValue <= probabilityOfWeedsAppearance) {
-            positionX += random.nextInt(sizeX);
-            positionY += random.nextInt(sizeY);
+            positionX += random.nextInt(size);
+            positionY += random.nextInt(size);
             if(flowers[positionX][positionY] != null) flowers[positionX][positionY].setHasWeeds(true);
         }
     }
@@ -90,8 +84,8 @@ public class Garden {
     public void spreadWeeds(double probabilityOfWeedsSpread) {
         Random random = new Random();
 
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int x = 0; x < size; x++) {
+            for(int y = 0; y < size; y++) {
                 if(flowers[x][y] != null) {
                     double randomValue = random.nextDouble();
                     if(flowers[x][y].getHasWeeds() && randomValue <= probabilityOfWeedsSpread) {
@@ -102,7 +96,7 @@ public class Garden {
                         displacementX = random.nextInt(3) - 1;
                         displacementY = random.nextInt(3) - 1;
 
-                        if(!isOutOfRange(x + displacementX, y + displacementY, sizeX, sizeY) && flowers[x + displacementX][y + displacementY] != null)
+                        if(!isOutOfRange(x + displacementX, y + displacementY, size, size) && flowers[x + displacementX][y + displacementY] != null)
                             flowers[x + displacementX][y + displacementY].setHasWeeds(true);
                     }
                 }
@@ -111,8 +105,8 @@ public class Garden {
     }
 
     public void printInsects() {
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int x = 0; x < size; x++) {
+            for(int y = 0; y < size; y++) {
                 if(flowers[x][y] != null) {
                     if(flowers[x][y].getHasInsects()) System.out.print("I ");
                     else System.out.print("F ");
@@ -124,8 +118,8 @@ public class Garden {
     }
 
     public void update() {
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int x = 0; x < size; x++) {
+            for(int y = 0; y < size; y++) {
                 if(flowers[x][y] != null) {
                     flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
                     flowers[x][y].updateHp();

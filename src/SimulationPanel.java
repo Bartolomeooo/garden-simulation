@@ -15,7 +15,7 @@ public class SimulationPanel extends JPanel {
         this.setFocusable(true);
         this.garden = garden;
         this.gardener = gardener;
-        UNIT_SIZE = SCREEN_WIDTH / garden.getSizeX();
+        UNIT_SIZE = SCREEN_WIDTH / garden.getSize();
         showHP = false;
     }
 
@@ -60,8 +60,8 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawFlowers(Graphics g) {
-        for(int x = 0; x < garden.getSizeX(); x++) {
-            for(int y = 0; y < garden.getSizeY(); y++) {
+        for(int x = 0; x < garden.getSize(); x++) {
+            for(int y = 0; y < garden.getSize(); y++) {
                 if(garden.getFlowers()[y][x] instanceof RedFlower) {
                     g.setColor(new Color(204, 0 , 0));
                     g.fillOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);

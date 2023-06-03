@@ -113,7 +113,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
                         int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
                         int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
 
-                        simulationPanel.setGarden(new Garden(size, size));
+                        simulationPanel.setGarden(new Garden(size));
                         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
                         simulationPanel.getGarden().print(); // Debug
 
@@ -134,7 +134,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
                         }
 
                         // Simulation init
-                        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
+                        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
                         if(((JCheckBox) showHP.getComponent()).isSelected())
                             simulationPanel.setShowHP(true);
                         else
