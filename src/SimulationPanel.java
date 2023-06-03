@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class SimulationPanel extends JPanel {
     static final int SCREEN_WIDTH = 600;
@@ -52,8 +55,8 @@ public class SimulationPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
-        drawFlowers(g);
         drawGardener(g);
+        drawFlowers(g);
         if(showGrid)
             drawGrid(g);
     }
@@ -66,20 +69,27 @@ public class SimulationPanel extends JPanel {
         }
     }
 
+    private void drawImage(Graphics g, String filename, int x, int y) {
+        try {
+            BufferedImage image = ImageIO.read(new File(filename));
+            Image scaledImage = image.getScaledInstance(UNIT_SIZE, UNIT_SIZE, Image.SCALE_SMOOTH);
+            g.drawImage(scaledImage, x * UNIT_SIZE, y * UNIT_SIZE, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void drawFlowers(Graphics g) {
         for(int x = 0; x < garden.getSize(); x++) {
             for(int y = 0; y < garden.getSize(); y++) {
                 if(garden.getFlowers()[y][x] instanceof RedFlower) {
-                    g.setColor(new Color(204, 0 , 0));
-                    g.fillOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+                    drawImage(g, "red_flower.png", x, y);
                 }
                 else if(garden.getFlowers()[y][x] instanceof YellowFlower) {
-                    g.setColor(new Color(255, 204, 51));
-                    g.fillOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+                    drawImage(g, "yellow_flower.png", x, y);
                 }
                 else if(garden.getFlowers()[y][x] instanceof BlueFlower) {
-                    g.setColor(new Color(0, 0, 204));
-                    g.fillOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+                    drawImage(g, "blue_flower.png", x, y);
                 }
 
                 if(garden.getFlowers()[y][x] != null) {
@@ -113,7 +123,6 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawGardener(Graphics g) {
-        g.setColor(Color.black);
-        g.fillOval(gardener.positionY*UNIT_SIZE + UNIT_SIZE/6, gardener.positionX*UNIT_SIZE + UNIT_SIZE/6, UNIT_SIZE*2/3, UNIT_SIZE*2/3);
+        drawImage(g, "gardener.png", gardener.positionX, gardener.positionY);
     }
 }
