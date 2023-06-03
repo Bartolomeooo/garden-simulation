@@ -95,25 +95,29 @@ public class SettingsPanel extends JPanel implements ActionListener {
         if(e.getSource() == startStopButton) {
             switch(startStopButton.getText()) {
                 case "START":
-                    // Garden init
-                    int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
+                    try {
+                        // Garden init
+                        int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
 
-                    int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
-                    int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
-                    int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
-                    int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
+                        int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
+                        int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
+                        int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
+                        int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
 
-                    simulationPanel.setGarden(new Garden(size, size));
-                    simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
-                    simulationPanel.getGarden().print();
+                        simulationPanel.setGarden(new Garden(size, size));
+                        simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
+                        simulationPanel.getGarden().print(); // Debug
 
-                    // Gardener init TODO: User chooses the movement
-                    simulationPanel.setGardener(new TargetingGardener());
+                        // Gardener init TODO: User chooses the movement
+                        simulationPanel.setGardener(new TargetingGardener());
 
-                    // Simulation init
-                    SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
-                    running = true;
-                    startStopButton.setText("STOP");
+                        // Simulation init
+                        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
+                        running = true;
+                        startStopButton.setText("STOP");
+                    } catch (Exception ex) {
+                        System.out.println("At least one TextField doesn't have a value");
+                    }
                     break;
                 case "STOP":
                     running = false;
