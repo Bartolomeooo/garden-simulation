@@ -8,6 +8,7 @@ public class SimulationPanel extends JPanel {
     private Garden garden;
     private Gardener gardener;
     private boolean showHP;
+    private boolean showGrid;
 
     SimulationPanel(Garden garden, Gardener gardener) {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -17,6 +18,7 @@ public class SimulationPanel extends JPanel {
         this.gardener = gardener;
         UNIT_SIZE = SCREEN_WIDTH / garden.getSize();
         showHP = false;
+        showGrid = false;
     }
 
     public Garden getGarden() {
@@ -39,6 +41,10 @@ public class SimulationPanel extends JPanel {
         this.showHP = showHP;
     }
 
+    public void setShowGrid(boolean showGrid) {
+        this.showGrid = showGrid;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
@@ -48,7 +54,8 @@ public class SimulationPanel extends JPanel {
     public void draw(Graphics g) {
         drawFlowers(g);
         drawGardener(g);
-        drawGrid(g);
+        if(showGrid)
+            drawGrid(g);
     }
 
     private void drawGrid(Graphics g) {

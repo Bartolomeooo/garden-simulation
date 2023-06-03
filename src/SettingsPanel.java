@@ -16,8 +16,9 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final LabeledComponent emptyRatio;
     private final LabeledComponent gardenerMovement;
     private final LabeledComponent showHP;
+    private final LabeledComponent showGrid;
     private final JButton startStopButton;
-    private String movementText[];
+    private final String[] movementText;
     private int movementIndex;
     Timer timer;
 
@@ -62,10 +63,19 @@ public class SettingsPanel extends JPanel implements ActionListener {
         gardenerMovement.resize(250);
         this.add(gardenerMovement);
 
-        // Visible HP setting
+        // Visible HP and grid settings
+        JPanel hpGridSettings = new JPanel();
+        hpGridSettings.setLayout(new BoxLayout(hpGridSettings, BoxLayout.X_AXIS));
+
         showHP = new LabeledComponent("Show Flowers' HP", new JCheckBox());
-        showHP.resize(250);
-        this.add(showHP);
+        showHP.resize(150);
+        hpGridSettings.add(showHP);
+
+        showGrid = new LabeledComponent("Show grid", new JCheckBox());
+        showGrid.resize(150);
+        hpGridSettings.add(showGrid);
+
+        this.add(hpGridSettings);
 
         // Start and Stop button
         startStopButton = new JButton("START");
@@ -135,10 +145,20 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
                         // Simulation init
                         SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
-                        if(((JCheckBox) showHP.getComponent()).isSelected())
+
+                        if(((JCheckBox) showHP.getComponent()).isSelected()) {
                             simulationPanel.setShowHP(true);
-                        else
+                        }
+                        else {
                             simulationPanel.setShowHP(false);
+                        }
+
+                        if(((JCheckBox) showGrid.getComponent()).isSelected()) {
+                            simulationPanel.setShowGrid(true);
+                        }
+                        else {
+                            simulationPanel.setShowGrid(false);
+                        }
 
                         running = true;
                         startStopButton.setText("STOP");
