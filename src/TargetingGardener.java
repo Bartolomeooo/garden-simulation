@@ -12,11 +12,6 @@ public class TargetingGardener extends Gardener {
         private int x;
         private int y;
 
-        public Vector() {
-            x = 0;
-            y = 0;
-        }
-
         public Vector(int x, int y) {
             this.x = x;
             this.y = y;
@@ -62,6 +57,7 @@ public class TargetingGardener extends Gardener {
         System.out.println("First Flower: [" + vector.x + ", " + vector.y + "]");
         return vector;
     }
+
     private void setTheTargetFlower(Garden garden) {
         Vector minHpIndex = new Vector(positionOfTheFirstFlower(garden));
 

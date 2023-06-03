@@ -3,7 +3,7 @@ import java.util.Random;
 public class PathFollowingGardener extends Gardener {
     private String horizontalDirection;
     private String verticalDirection;
-    private int movementIndex;
+    private final int movementIndex;
 
 
     public PathFollowingGardener(int movementIndex) {
@@ -13,7 +13,7 @@ public class PathFollowingGardener extends Gardener {
         this.movementIndex = movementIndex;
     }
 
-    public void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
+    private void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
                 if (positionY + 1 == maxIndex) { // Out of range Y
@@ -68,7 +68,7 @@ public class PathFollowingGardener extends Gardener {
         System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
     }
 
-    public void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
+    private void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
                 if (positionY + 1 == maxIndex) { // Out of range Y
@@ -129,7 +129,7 @@ public class PathFollowingGardener extends Gardener {
 
     private boolean isFirstTick = true;
 
-    public void moveRandomly(Garden garden) {
+    private void moveRandomly(Garden garden) {
         Random random = new Random();
         int displacementX;
         int displacementY;
