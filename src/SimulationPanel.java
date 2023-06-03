@@ -123,6 +123,6 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawGardener(Graphics g) {
-        drawImage(g, "gardener.png", gardener.positionX, gardener.positionY);
+        drawImage(g, "gardener.png", gardener.positionY, gardener.positionX);
     }
 }
