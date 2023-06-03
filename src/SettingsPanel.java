@@ -16,8 +16,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final LabeledComponent emptyRatio;
     private final LabeledComponent gardenerMovement;
     private final LabeledComponent showHP;
-    private final JButton startButton;
-    private final JButton stopButton;
+    private final JButton startStopButton;
     Timer timer;
 
 
@@ -51,29 +50,22 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         // Gardener movement setting
         gardenerMovement = new LabeledComponent("Gardener's movement", new JButton("Target the one with the lowest HP"));
-        gardenerMovement.resize(new Dimension(250, 60));
+        gardenerMovement.resize(250);
         this.add(gardenerMovement);
 
         // Visible HP setting
         showHP = new LabeledComponent("Show Flowers' HP", new JCheckBox());
-        showHP.resize(new Dimension(250, 30));
+        showHP.resize(250);
         this.add(showHP);
 
-        // Start and Stop buttons
-        JPanel buttons = new JPanel();
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-
-        startButton = new JButton("START");
-        buttons.add(startButton);
-        stopButton = new JButton("STOP");
-        buttons.add(stopButton);
-
-        this.add(buttons);
+        // Start and Stop button
+        startStopButton = new JButton("START");
+        this.add(startStopButton);
+        startStopButton.setAlignmentX(0.5f);
 
         // Make buttons functional
         ((JButton) gardenerMovement.getComponent()).addActionListener(this);
-        startButton.addActionListener(this);
-        stopButton.addActionListener(this);
+        startStopButton.addActionListener(this);
 
         // Simulation settings
         this.running = running;
@@ -99,33 +91,38 @@ public class SettingsPanel extends JPanel implements ActionListener {
             simulationPanel.getGardener().update(simulationPanel.getGarden());
             simulationPanel.getGardener().printInsectsAndWeeds(simulationPanel.getGarden()); //debug
         }
-        else if(e.getSource() == startButton) {
-            // Garden init
-            int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
-            simulationPanel.setGarden(new Garden(size, size));
 
-            int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
-            int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
-            int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
-            int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
+        if(e.getSource() == startStopButton) {
+            switch(startStopButton.getText()) {
+                case "START":
+                    // Garden init
+                    int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
 
-            simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
-            simulationPanel.getGarden().print();
+                    int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
+                    int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
+                    int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
+                    int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
 
-            // Gardener init TODO: User chooses the movement
-            simulationPanel.setGardener(new TargetingGardener());
+                    simulationPanel.setGarden(new Garden(size, size));
+                    simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
+                    simulationPanel.getGarden().print();
 
-            // Simulation init
-            SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
-            running = true;
-            System.out.println("aaaa");
+                    // Gardener init TODO: User chooses the movement
+                    simulationPanel.setGardener(new TargetingGardener());
+
+                    // Simulation init
+                    SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSizeX();
+                    running = true;
+                    startStopButton.setText("STOP");
+                    break;
+                case "STOP":
+                    running = false;
+                    startStopButton.setText("START");
+                    break;
+            }
         }
 
-        if (e.getSource() == stopButton) {
-            System.out.println("bbbb");
-            running = false;
-        }
-        /*else if (e.getSource() == gardenerMovement.getComponent()) {  TODO: Make this button functional + Make "Show HP" functional
+        /*if (e.getSource() == gardenerMovement.getComponent()) {  TODO: Make this button functional + Make "Show HP" functional
             ((JButton) gardenerMovement.getComponent()).setText();
         }*/
 
@@ -138,8 +135,8 @@ public class SettingsPanel extends JPanel implements ActionListener {
         private final JLabel label;
         private final JComponent component;
         private final Font font = new Font("Arial", Font.PLAIN, 20);
-        private Dimension componentDimension = new Dimension(60,60);
-        private Dimension panelDimension = new Dimension(80, 100);
+        private Dimension componentDimension = new Dimension(60,30);
+        private Dimension panelDimension = new Dimension((int) componentDimension.getWidth() + 20, (int) componentDimension.getHeight() + 40);
 
         public LabeledComponent(String text, JComponent component) {
             // Panel settings
@@ -169,19 +166,21 @@ public class SettingsPanel extends JPanel implements ActionListener {
             component.setMinimumSize(componentDimension);
             component.setAlignmentX(0.5f);
             this.add(component);
+
+            // Add space between panels
+            this.add(Box.createHorizontalStrut(0));
         }
 
-        public void resize(Dimension dimension) {
+        public void resize(int width) {
             // Resize component
-            this.componentDimension = dimension;
+            componentDimension.setSize(width, componentDimension.getHeight());
             component.setMaximumSize(componentDimension);
             component.setMinimumSize(componentDimension);
 
             // Resize panel
-            dimension.setSize(dimension.getWidth() + 20, dimension.getHeight() + 20);
-            this.panelDimension = dimension;
-            this.setMaximumSize(dimension);
-            this.setMinimumSize(dimension);
+            panelDimension.setSize(width + 20, panelDimension.getHeight());
+            this.setMaximumSize(panelDimension);
+            this.setMinimumSize(panelDimension);
         }
 
         public JComponent getComponent() {
