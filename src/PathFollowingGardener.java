@@ -164,7 +164,7 @@ public class PathFollowingGardener extends Gardener {
         } else {
             try {
                 // Playing footstep audio from a wav file
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx.wav"));
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx_16bit.wav"));
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);
                 clip.start();

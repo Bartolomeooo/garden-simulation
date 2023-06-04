@@ -38,20 +38,20 @@ public class SettingsPanel extends JPanel implements ActionListener {
         simulationPanel = new SimulationPanel(garden, gardener);
 
         // Garden size setting
-        gardenSize = new LabeledComponent("Set size", new JTextField());
+        gardenSize = new LabeledComponent("Set size", new JTextField("10"));
         this.add(gardenSize);
 
         // Flowers settings
         JPanel flowersRatio = new JPanel();
         flowersRatio.setLayout(new BoxLayout(flowersRatio, BoxLayout.X_AXIS));
 
-        redRatio = new LabeledComponent("Red ratio", new JTextField());
+        redRatio = new LabeledComponent("Red ratio", new JTextField("1"));
         flowersRatio.add(redRatio);
-        yellowRatio = new LabeledComponent("Yellow ratio", new JTextField());
+        yellowRatio = new LabeledComponent("Yellow ratio", new JTextField("1"));
         flowersRatio.add(yellowRatio);
-        blueRatio = new LabeledComponent("Blue ratio", new JTextField());
+        blueRatio = new LabeledComponent("Blue ratio", new JTextField("1"));
         flowersRatio.add(blueRatio);
-        emptyRatio = new LabeledComponent("Empty ratio", new JTextField());
+        emptyRatio = new LabeledComponent("Empty ratio", new JTextField("0"));
         flowersRatio.add(emptyRatio);
 
         this.add(flowersRatio);
@@ -98,7 +98,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         try {
             // Playing looped wav file
-            AudioInputStream loopAudioStream = AudioSystem.getAudioInputStream(new File("background_fx.wav"));
+            AudioInputStream loopAudioStream = AudioSystem.getAudioInputStream(new File("background_fx_16bit.wav"));
             loopClip = AudioSystem.getClip();
             loopClip.open(loopAudioStream);
             loopClip.loop(Clip.LOOP_CONTINUOUSLY);

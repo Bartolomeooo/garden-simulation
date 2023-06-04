@@ -22,7 +22,7 @@ public abstract class Gardener {
 
         try {
             // Playing audio from a wav file
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_revival_fx.wav"));
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_revival_fx_16bit.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
