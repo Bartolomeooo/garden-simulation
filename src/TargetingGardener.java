@@ -1,3 +1,8 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 import static java.lang.Math.abs;
 
 public class TargetingGardener extends Gardener {
@@ -131,7 +136,17 @@ public class TargetingGardener extends Gardener {
             removeInsects(garden);
             removeWeeds(garden);
             setTheTargetFlower(garden);
-        } else
+        } else {
             moveToTheTarget(garden);
+            try {
+                // Playing footstep audio from a wav file
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
