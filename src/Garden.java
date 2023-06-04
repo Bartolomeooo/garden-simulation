@@ -1,3 +1,7 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.util.Random;
 
 public class Garden {
@@ -123,7 +127,18 @@ public class Garden {
                 if(flowers[x][y] != null) {
                     flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
                     flowers[x][y].updateHp();
-                    if(flowers[x][y].getHp() <= 0) flowers[x][y] = null;
+                    if(flowers[x][y].getHp() <= 0) {
+                        flowers[x][y] = null;
+                        try {
+                            // Playing audio from a wav file
+                            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_death_16bit.wav"));
+                            Clip clip = AudioSystem.getClip();
+                            clip.open(audioStream);
+                            clip.start();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
