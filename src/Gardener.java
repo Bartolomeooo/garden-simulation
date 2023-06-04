@@ -1,3 +1,8 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 public abstract class Gardener {
     protected int positionX;
     protected int positionY;
@@ -13,7 +18,17 @@ public abstract class Gardener {
 
     protected int water(Garden garden) { // - Returns how much time gardener needs to water the flower
         garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration
-        garden.getFlowers()[positionX][positionY].setHp(100); //max hp
+        garden.getFlowers()[positionX][positionY].setHp(1000); //max hp
+
+        try {
+            // Playing audio from a wav file
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_revival_fx.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return 1;
     }
