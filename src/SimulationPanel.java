@@ -18,7 +18,7 @@ public class SimulationPanel extends JPanel {
 
     SimulationPanel(Garden garden, Gardener gardener) {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        // this.setBackground(new Color(0, 204, 0));
+        this.setBackground(new Color(7, 133, 4));
         this.setFocusable(true);
         this.garden = garden;
         this.gardener = gardener;
@@ -64,7 +64,7 @@ public class SimulationPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
-        drawBackground(g);
+        //  drawBackground(g);
         drawGardener(g);
         drawFlowers(g);
         if(showGrid)
@@ -96,19 +96,23 @@ public class SimulationPanel extends JPanel {
     private void drawFlowers(Graphics g) {
         for(int x = 0; x < garden.getSize(); x++) {
             for(int y = 0; y < garden.getSize(); y++) {
-                if(garden.getFlowers()[y][x] instanceof RedFlower) {
-                    drawImage(g, "red_flower.png", x, y);
-                }
-                else if(garden.getFlowers()[y][x] instanceof YellowFlower) {
-                    drawImage(g, "yellow_flower.png", x, y);
-                }
-                else if(garden.getFlowers()[y][x] instanceof BlueFlower) {
-                    drawImage(g, "blue_flower.png", x, y);
-                }
-
                 if(garden.getFlowers()[y][x] != null) {
                     drawWeeds(g, x, y);
                     drawInsects(g, x, y);
+                }
+
+                if(garden.getFlowers()[y][x] instanceof RedFlower) {
+                    drawImage(g, "red_flower.png", x, y);
+                    if(showHP)
+                        drawHp(g, x, y);
+                }
+                else if(garden.getFlowers()[y][x] instanceof YellowFlower) {
+                    drawImage(g, "yellow_flower.png", x, y);
+                    if(showHP)
+                        drawHp(g, x, y);
+                }
+                else if(garden.getFlowers()[y][x] instanceof BlueFlower) {
+                    drawImage(g, "blue_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
@@ -118,22 +122,34 @@ public class SimulationPanel extends JPanel {
 
     private void drawWeeds(Graphics g, int x, int y) {
         if(garden.getFlowers()[y][x].getHasWeeds()) {
-            g.setColor(new Color(153,102,0));
-            g.fillRect(x*UNIT_SIZE, y*UNIT_SIZE + 3*UNIT_SIZE/4, UNIT_SIZE, UNIT_SIZE/4);
+            drawImage(g, "weeds.png", x, y);
         }
     }
 
     private void drawInsects(Graphics g, int x, int y) {
         if(garden.getFlowers()[y][x].getHasInsects()) {
-            g.setColor(new Color(51, 51, 51));
-            g.fillRect(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE/4, UNIT_SIZE);
+            drawImage(g, "insects.png", x, y);
         }
     }
 
+    private void drawOutlinedText(Graphics g, String text, int x, int y, Color textColor, Color outlineColor, int outlineThickness) {
+        Graphics2D g2d = (Graphics2D) g;
+        Font font = new Font("Helvetica", Font.BOLD, UNIT_SIZE / 5);
+
+        g2d.setFont(font);
+        g2d.setColor(outlineColor);
+        g2d.drawString(text, x - outlineThickness, y);
+        g2d.drawString(text, x + outlineThickness, y);
+        g2d.drawString(text, x, y - outlineThickness);
+        g2d.drawString(text, x, y + outlineThickness);
+
+        g2d.setColor(textColor);
+        g2d.drawString(text, x, y);
+    }
+
     private void drawHp(Graphics g, int x, int y) {
-        g.setColor(Color.black);
-        g.setFont(new Font("Helvetica", Font.BOLD, UNIT_SIZE/5));
-        g.drawString(" HP: " + garden.getFlowers()[y][x].getHp(), x*UNIT_SIZE, y*UNIT_SIZE + g.getFont().getSize());
+        int hp = garden.getFlowers()[y][x].getHp();
+        drawOutlinedText(g, "HP: " + hp, x * UNIT_SIZE, y * UNIT_SIZE + g.getFont().getSize(), Color.white, Color.black, 2);
     }
 
     private void drawGardener(Graphics g) {
