@@ -1,3 +1,7 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.util.Random;
 
 public class PathFollowingGardener extends Gardener {
@@ -158,6 +162,15 @@ public class PathFollowingGardener extends Gardener {
             removeInsects(garden);
             removeWeeds(garden);
         } else {
+            try {
+                // Playing footstep audio from a wav file
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             switch(movementIndex){ // Move
                 case 1:
                     moveRandomly(garden);
