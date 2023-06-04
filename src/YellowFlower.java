@@ -6,7 +6,7 @@ public class YellowFlower implements Flower {
 
 
     public YellowFlower() {
-        hp = 100;
+        hp = 1000;
         hydration = 50;
         hasInsects = false;
         hasWeeds = false;
