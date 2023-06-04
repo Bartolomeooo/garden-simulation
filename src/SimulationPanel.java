@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class SimulationPanel extends JPanel {
     static final int SCREEN_WIDTH = 600;
@@ -13,15 +14,23 @@ public class SimulationPanel extends JPanel {
     private boolean showHP;
     private boolean showGrid;
 
+    private BufferedImage backgroundImage;
+
     SimulationPanel(Garden garden, Gardener gardener) {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.setBackground(new Color(0, 204, 0));
+        // this.setBackground(new Color(0, 204, 0));
         this.setFocusable(true);
         this.garden = garden;
         this.gardener = gardener;
         UNIT_SIZE = SCREEN_WIDTH / garden.getSize();
         showHP = false;
         showGrid = false;
+
+        try {
+            backgroundImage = ImageIO.read(new File("garden_background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Garden getGarden() {
@@ -55,10 +64,15 @@ public class SimulationPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
+        drawBackground(g);
         drawGardener(g);
         drawFlowers(g);
         if(showGrid)
             drawGrid(g);
+    }
+
+    private void drawBackground(Graphics g) {
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
     private void drawGrid(Graphics g) {
