@@ -158,7 +158,7 @@ public class PathFollowingGardener extends Gardener {
             removeInsects(garden);
             removeWeeds(garden);
         } else {
-            Audio.play("footstep_fx_16bit.wav");
+            Audio.play("sounds/footstep_fx_16bit.wav");
 
             switch(movementIndex){ // Move
                 case 1:

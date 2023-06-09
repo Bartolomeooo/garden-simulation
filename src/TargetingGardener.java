@@ -137,7 +137,7 @@ public class TargetingGardener extends Gardener {
             setTheTargetFlower(garden);
         } else {
             moveToTheTarget(garden);
-            Audio.play("footstep_fx_16bit.wav");
+            Audio.play("sounds/footstep_fx_16bit.wav");
         }
     }
 }
