@@ -101,17 +101,17 @@ public class SimulationPanel extends JPanel {
                     drawInsects(g, x, y);
                 }
                 if(garden.getFlowers()[y][x] instanceof RedFlower) {
-                    drawImage(g, "red_flower.png", x, y);
+                    drawImage(g, "icons/red_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
                 else if(garden.getFlowers()[y][x] instanceof YellowFlower) {
-                    drawImage(g, "yellow_flower.png", x, y);
+                    drawImage(g, "icons/yellow_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
                 else if(garden.getFlowers()[y][x] instanceof BlueFlower) {
-                    drawImage(g, "blue_flower.png", x, y);
+                    drawImage(g, "icons/blue_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
@@ -121,13 +121,13 @@ public class SimulationPanel extends JPanel {
 
     private void drawWeeds(Graphics g, int x, int y) {
         if(garden.getFlowers()[y][x].getHasWeeds()) {
-            drawImage(g, "weeds.png", x, y);
+            drawImage(g, "icons/weeds.png", x, y);
         }
     }
 
     private void drawInsects(Graphics g, int x, int y) {
         if(garden.getFlowers()[y][x].getHasInsects()) {
-            drawImage(g, "insects.png", x, y);
+            drawImage(g, "icons/insects.png", x, y);
         }
     }
 
@@ -153,6 +153,6 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawGardener(Graphics g) {
-        drawImage(g, "gardener.png", gardener.positionY, gardener.positionX);
+        drawImage(g, "icons/gardener.png", gardener.positionY, gardener.positionX);
     }
 }

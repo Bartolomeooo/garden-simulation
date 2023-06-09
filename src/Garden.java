@@ -129,15 +129,7 @@ public class Garden {
                     flowers[x][y].updateHp();
                     if(flowers[x][y].getHp() <= 0) {
                         flowers[x][y] = null;
-                        try {
-                            // Playing audio from a wav file
-                            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_death_16bit.wav"));
-                            Clip clip = AudioSystem.getClip();
-                            clip.open(audioStream);
-                            clip.start();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        Audio.play("sounds/flower_death_16bit.wav");
                     }
                 }
             }

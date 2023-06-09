@@ -100,7 +100,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         timer.start();
 
         // Music
-        Audio.playInLoop("background_fx_16bit.wav");
+        Audio.playInLoop("sounds/background_fx_16bit.wav");
     }
 
     public SimulationPanel getSimulationPanel() {
@@ -115,7 +115,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
             simulationPanel.getGarden().insertInsect(0.3);
             simulationPanel.getGarden().insertWeeds(0.3);
-            simulationPanel.getGarden().spreadWeeds(0.05);
+            simulationPanel.getGarden().spreadWeeds(0.01);
 
             // Gardener update
             simulationPanel.getGardener().update(simulationPanel.getGarden());
