@@ -148,7 +148,8 @@ public class SimulationPanel extends JPanel {
 
     private void drawHp(Graphics g, int x, int y) {
         int hp = garden.getFlowers()[y][x].getHp();
-        drawOutlinedText(g, "HP: " + hp, x * UNIT_SIZE, y * UNIT_SIZE + g.getFont().getSize(), Color.white, Color.black, 2);
+        g.setFont(new Font("Helvetica", Font.BOLD, UNIT_SIZE / 5));
+        drawOutlinedText(g, " HP: " + hp, x * UNIT_SIZE, y * UNIT_SIZE + g.getFont().getSize(), Color.white, Color.black, 2);
     }
 
     private void drawGardener(Graphics g) {
