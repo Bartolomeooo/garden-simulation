@@ -1,8 +1,3 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
-
 public abstract class Gardener {
     protected int positionX;
     protected int positionY;
@@ -43,58 +38,35 @@ public abstract class Gardener {
         return 0;
     }
 
+    protected int timeToHealTheFlower(Garden garden) { // How much time (ticks) gardener needs to heal the flower
+        return water(garden) + removeInsects(garden) + removeWeeds(garden);
+    }
+
     public void update(Garden garden) {}
 
-    public void print(int maxX, int maxY) {
-        for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < maxY; y++) {
-                if (x == positionX && y == positionY)
-                    System.out.print("O ");
-                else
-                    System.out.print(". ");
-            }
-            System.out.println();
-        }
-    }
-
-    public void printHp(Garden garden) {
-        for (int x = 0; x < garden.getSize(); x++) {
-            for (int y = 0; y < garden.getSize(); y++) {
-                if (x == positionX && y == positionY)
-                    System.out.printf("%4s", "▨");
-                else {
-                    if(garden.getFlowers()[x][y] == null)
-                        System.out.printf("%4s", "X");
-                    else
-                        System.out.printf("%4d", garden.getFlowers()[x][y].getHp());
-                }
-            }
-            System.out.println();
-        }
-    }
 
     public void printInsectsAndWeeds(Garden garden) {
         for (int x = 0; x < garden.getSize(); x++) {
             for (int y = 0; y < garden.getSize(); y++) {
                 if (x == positionX && y == positionY)
-                    System.out.printf("%4s", "▨");
+                    System.out.printf("%7s|", "▨");
                 else {
                     if(garden.getFlowers()[x][y] == null)
-                        System.out.printf("%4s", "X");
+                        System.out.printf("%7s|", "X");
                     else {
                         if(garden.getFlowers()[x][y].getHasInsects() && garden.getFlowers()[x][y].getHasWeeds())
-                            System.out.printf("%4s", "■");
+                            System.out.printf("%2s%5d|", "■", garden.getFlowers()[x][y].getHp());
                         else if(garden.getFlowers()[x][y].getHasInsects())
-                            System.out.printf("%4s", "◧");
+                            System.out.printf("%2s%5d|", "◧", garden.getFlowers()[x][y].getHp());
                         else if(garden.getFlowers()[x][y].getHasWeeds())
-                            System.out.printf("%4s", "◨");
+                            System.out.printf("%2s%5d|", "◨", garden.getFlowers()[x][y].getHp());
                         else
-                            System.out.printf("%4d", garden.getFlowers()[x][y].getHp());
-                        //System.out.printf("%4s", "□");
+                            System.out.printf("%2s%5d|", "□", garden.getFlowers()[x][y].getHp());
                     }
                 }
             }
             System.out.println();
         }
+        System.out.println("================================================================================");
     }
 }

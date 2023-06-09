@@ -1,8 +1,3 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
-
 import static java.lang.Math.abs;
 
 public class TargetingGardener extends Gardener {
@@ -35,6 +30,10 @@ public class TargetingGardener extends Gardener {
         return new Vector(x, y);
     }
 
+    private int damageBeforeGardenerArrival(Garden garden, int x, int y) { // Returns the amount of damage the flower will take until Gardener arrives based on their positions
+        return (abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick();
+    }
+
     private Vector positionOfTheFirstFlower(Garden garden) {
         Vector vector = new Vector(-1, -1);
         int x = 0;
@@ -43,7 +42,7 @@ public class TargetingGardener extends Gardener {
             int y = 0;
             do{
                 if(garden.getFlowers()[x][y] != null) {
-                    if((abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick() < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
+                    if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
                         vector = new Vector(x, y);
                 }
                 y++;
@@ -70,7 +69,7 @@ public class TargetingGardener extends Gardener {
             for(int y = 0; y < garden.getSize(); y++) {
                 if(garden.getFlowers()[x][y] != null) {
                     if(garden.getFlowers()[x][y].getHp() < garden.getFlowers()[minHpIndex.x][minHpIndex.y].getHp()) {
-                        if((abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick() < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
+                        if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
                             minHpIndex = new Vector(x, y);
                     }
                 }
@@ -121,7 +120,7 @@ public class TargetingGardener extends Gardener {
                 //Debug
                 System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
 
-                actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); // How much time (ticks) gardener needs to heal the flower
+                actionTimer += timeToHealTheFlower(garden);
             }
             else
                 setTheTargetFlower(garden);

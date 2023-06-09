@@ -1,7 +1,3 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
 import java.util.Random;
 
 public class PathFollowingGardener extends Gardener {
@@ -180,7 +176,7 @@ public class PathFollowingGardener extends Gardener {
                 //Debug
                 System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
 
-                actionTimer += water(garden) + removeInsects(garden) + removeWeeds(garden); // How much time (ticks) gardener needs to heal the flower
+                actionTimer += this.timeToHealTheFlower(garden);
             }
         }
     }

@@ -1,10 +1,6 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 //import java.util.Random;
 
 public class SettingsPanel extends JPanel implements ActionListener {
@@ -103,6 +99,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         timer = new Timer(delay, this);
         timer.start();
 
+        // Music
         Audio.playInLoop("background_fx_16bit.wav");
     }
 
