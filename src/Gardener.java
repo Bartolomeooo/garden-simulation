@@ -20,15 +20,7 @@ public abstract class Gardener {
         garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration
         garden.getFlowers()[positionX][positionY].setHp(1000); //max hp
 
-        try {
-            // Playing audio from a wav file
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("flower_revival_fx_16bit.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Audio.play("flower_revival_fx_16bit.wav");
 
         return 1;
     }

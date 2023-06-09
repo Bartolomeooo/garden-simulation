@@ -100,7 +100,6 @@ public class SimulationPanel extends JPanel {
                     drawWeeds(g, x, y);
                     drawInsects(g, x, y);
                 }
-
                 if(garden.getFlowers()[y][x] instanceof RedFlower) {
                     drawImage(g, "red_flower.png", x, y);
                     if(showHP)

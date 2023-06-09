@@ -162,15 +162,8 @@ public class PathFollowingGardener extends Gardener {
             removeInsects(garden);
             removeWeeds(garden);
         } else {
-            try {
-                // Playing footstep audio from a wav file
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx_16bit.wav"));
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Audio.play("footstep_fx_16bit.wav");
+
             switch(movementIndex){ // Move
                 case 1:
                     moveRandomly(garden);

@@ -26,8 +26,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private int movementIndex;
     Timer timer;
 
-    private Clip loopClip;
-
     public SettingsPanel(Garden garden, Gardener gardener, boolean running) {
         // Panel settings
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -96,15 +94,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
 
-        try {
-            // Playing looped wav file
-            AudioInputStream loopAudioStream = AudioSystem.getAudioInputStream(new File("background_fx_16bit.wav"));
-            loopClip = AudioSystem.getClip();
-            loopClip.open(loopAudioStream);
-            loopClip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Audio.playInLoop("background_fx_16bit.wav");
     }
 
     public SimulationPanel getSimulationPanel() {
@@ -129,7 +119,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
         if(e.getSource() == startStopButton) {
             switch(startStopButton.getText()) {
                 case "START":
-                    loopClip.start();
                     try {
                         // Garden init
                         int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
@@ -183,7 +172,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
                     }
                     break;
                 case "STOP":
-                    loopClip.stop();
                     running = false;
                     startStopButton.setText("START");
                     break;

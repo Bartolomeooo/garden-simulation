@@ -138,15 +138,7 @@ public class TargetingGardener extends Gardener {
             setTheTargetFlower(garden);
         } else {
             moveToTheTarget(garden);
-            try {
-                // Playing footstep audio from a wav file
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("footstep_fx_16bit.wav"));
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Audio.play("footstep_fx_16bit.wav");
         }
     }
 }
