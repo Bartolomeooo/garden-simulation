@@ -10,9 +10,9 @@ import java.io.File;
 public class SettingsPanel extends JPanel implements ActionListener {
     private final SimulationPanel simulationPanel;
     static final int SCREEN_WIDTH = 300;
-    static final int SCREEN_HEIGHT = 600;
+    static final int SCREEN_HEIGHT = 700;
     private boolean running;
-    static final int DELAY = 500;
+    private final LabeledComponent speed;
     private final LabeledComponent gardenSize;
     private final LabeledComponent redRatio;
     private final LabeledComponent yellowRatio;
@@ -35,9 +35,17 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         simulationPanel = new SimulationPanel(garden, gardener);
 
-        // Garden size setting
-        gardenSize = new LabeledComponent("Set size", new JTextField("10"));
-        this.add(gardenSize);
+        // Garden size and speed settings
+        JPanel sizeSpeed = new JPanel();
+        sizeSpeed.setLayout(new BoxLayout(sizeSpeed, BoxLayout.X_AXIS));
+
+        gardenSize = new LabeledComponent("Garden size", new JTextField("10"));
+        sizeSpeed.add(gardenSize);
+
+        speed = new LabeledComponent("Speed [ms]", new JTextField("500"));
+        sizeSpeed.add(speed);
+
+        this.add(sizeSpeed);
 
         // Flowers settings
         JPanel flowersRatio = new JPanel();
@@ -91,7 +99,8 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         // Simulation settings
         this.running = running;
-        timer = new Timer(DELAY, this);
+        int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
+        timer = new Timer(delay, this);
         timer.start();
 
         Audio.playInLoop("background_fx_16bit.wav");
@@ -120,6 +129,10 @@ public class SettingsPanel extends JPanel implements ActionListener {
             switch(startStopButton.getText()) {
                 case "START":
                     try {
+                        // Timer setup
+                        int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
+                        timer.setDelay(delay);
+
                         // Garden init
                         int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
 

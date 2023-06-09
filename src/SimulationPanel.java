@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class SimulationPanel extends JPanel {
-    static final int SCREEN_WIDTH = 600;
-    static final int SCREEN_HEIGHT = 600;
+    static final int SCREEN_WIDTH = 700;
+    static final int SCREEN_HEIGHT = 700;
     static int UNIT_SIZE;
     private Garden garden;
     private Gardener gardener;
