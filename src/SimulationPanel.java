@@ -25,12 +25,6 @@ public class SimulationPanel extends JPanel {
         UNIT_SIZE = SCREEN_WIDTH / garden.getSize();
         showHP = false;
         showGrid = false;
-
-        try {
-            backgroundImage = ImageIO.read(new File("garden_background.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public Garden getGarden() {
