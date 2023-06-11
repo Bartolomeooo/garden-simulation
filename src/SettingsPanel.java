@@ -126,60 +126,10 @@ public class SettingsPanel extends JPanel implements ActionListener {
             switch(startStopButton.getText()) {
                 case "START":
                     try {
-                        // Timer setup
-                        setSpeedInRange();
-                        int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
-                        timer.setDelay(delay);
-
-                        // Garden init
-                        setGardenSizeInRange();
-                        int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
-
-                        setRatioInRange(redRatio);
-                        int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
-                        setRatioInRange(yellowRatio);
-                        int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
-                        setRatioInRange(blueRatio);
-                        int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
-                        setRatioInRange(emptyRatio);
-                        int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
-
-                        simulationPanel.setGarden(new Garden(size));
-                        simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
-                        simulationPanel.getGarden().print(); // Debug
-
-                        // Gardener init
-                        switch(movementIndex) {
-                            case 0: // "Target the one with the lowest HP"
-                                simulationPanel.setGardener(new TargetingGardener());
-                                break;
-                            case 1: // "Move randomly"
-                                simulationPanel.setGardener(new PathFollowingGardener(1));
-                                break;
-                            case 2: // "Pattern 1"
-                                simulationPanel.setGardener(new PathFollowingGardener(2));
-                                break;
-                            case 3: // "Pattern 2"
-                                simulationPanel.setGardener(new PathFollowingGardener(3));
-                                break;
-                        }
-
-                        // Simulation init
-                        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
-
-                        if(((JCheckBox) showHP.getComponent()).isSelected()) {
-                            simulationPanel.setShowHP(true);
-                        }
-                        else {
-                            simulationPanel.setShowHP(false);
-                        }
-
-                        if(((JCheckBox) showGrid.getComponent()).isSelected()) {
-                            simulationPanel.setShowGrid(true);
-                        }
-                        else {
-                            simulationPanel.setShowGrid(false);
-                        }
+                        timerSetup();
+                        gardenInit();
+                        gardenerInit();
+                        simulationInit();
 
                         running = true;
                         startStopButton.setText("STOP");
@@ -201,6 +151,70 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         simulationPanel.repaint();
     }
+
+
+    private void timerSetup() {
+        setSpeedInRange();
+        int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
+        timer.setDelay(delay);
+    }
+
+    private void gardenInit() {
+        // Garden size
+        setGardenSizeInRange();
+        int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
+
+        // Flowers ratio
+        setRatioInRange(redRatio);
+        int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
+        setRatioInRange(yellowRatio);
+        int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
+        setRatioInRange(blueRatio);
+        int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
+        setRatioInRange(emptyRatio);
+        int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
+
+        // Initialization
+        simulationPanel.setGarden(new Garden(size));
+        simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
+        simulationPanel.getGarden().print(); // Debug
+    }
+
+    private void gardenerInit() {
+        switch(movementIndex) {
+            case 0: // "Target the one with the lowest HP"
+                simulationPanel.setGardener(new TargetingGardener());
+                break;
+            case 1: // "Move randomly"
+                simulationPanel.setGardener(new PathFollowingGardener(1));
+                break;
+            case 2: // "Pattern 1"
+                simulationPanel.setGardener(new PathFollowingGardener(2));
+                break;
+            case 3: // "Pattern 2"
+                simulationPanel.setGardener(new PathFollowingGardener(3));
+                break;
+        }
+    }
+
+    private void simulationInit() {
+        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
+
+        if(((JCheckBox) showHP.getComponent()).isSelected()) {
+            simulationPanel.setShowHP(true);
+        }
+        else {
+            simulationPanel.setShowHP(false);
+        }
+
+        if(((JCheckBox) showGrid.getComponent()).isSelected()) {
+            simulationPanel.setShowGrid(true);
+        }
+        else {
+            simulationPanel.setShowGrid(false);
+        }
+    }
+
 
     private void setSpeedInRange() {
         int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
