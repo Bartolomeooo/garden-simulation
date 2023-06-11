@@ -1,8 +1,16 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class RedFlower implements Flower {
     private int hp;
     private float hydration;
     private boolean hasInsects;
     private boolean hasWeeds;
+
+    private static Image iconImage;
 
 
     public RedFlower() {
@@ -10,8 +18,16 @@ public class RedFlower implements Flower {
         hydration = 50;
         hasInsects = false;
         hasWeeds = false;
+
     }
 
+    public static Image getIconImage() {
+        return iconImage;
+    }
+
+    public static void setIconImage(Image iconImage) {
+        RedFlower.iconImage = iconImage;
+    }
 
     public int getHp() {
         return hp;

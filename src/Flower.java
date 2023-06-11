@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public interface Flower {
     int getHp();
     void setHp(int hp);

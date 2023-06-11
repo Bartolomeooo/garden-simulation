@@ -1,12 +1,33 @@
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.Random;
 
 public class Garden {
     private int size;
     private final Flower[][] flowers;
+
+    private static Image weedsIcon;
+    private static Image insectIcon;
+
+    public static void setInsectIcon(Image insectIcon) {
+        Garden.insectIcon = insectIcon;
+    }
+
+    public static Image getInsectIcon() {
+        return insectIcon;
+    }
+
+    public static void setWeedsIcon(Image weedsIcon) {
+        Garden.weedsIcon = weedsIcon;
+    }
+
+    public static Image getWeedsIcon() {
+        return weedsIcon;
+    }
 
     public Garden(int size) {
         this.size = size;

@@ -1,8 +1,16 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class YellowFlower implements Flower {
     private int hp;
     private float hydration;
     private boolean hasInsects;
     private boolean hasWeeds;
+
+    private static Image iconImage;
 
 
     public YellowFlower() {
@@ -12,6 +20,13 @@ public class YellowFlower implements Flower {
         hasWeeds = false;
     }
 
+    public static Image getIconImage() {
+        return iconImage;
+    }
+
+    public static void setIconImage(Image iconImage) {
+        YellowFlower.iconImage = iconImage;
+    }
 
     public int getHp() {
         return hp;
