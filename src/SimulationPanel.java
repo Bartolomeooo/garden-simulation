@@ -88,23 +88,23 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawFlowers(Graphics g) {
-        for(int x = 0; x < garden.getSize(); x++) {
-            for(int y = 0; y < garden.getSize(); y++) {
-                if(garden.getFlowers()[y][x] != null) {
+        for(int y = 0; y < garden.getSize(); y++) {
+            for(int x = 0; x < garden.getSize(); x++) {
+                if(garden.getFlowers()[x][y] != null) {
                     drawWeeds(g, x, y);
                     drawInsects(g, x, y);
                 }
-                if(garden.getFlowers()[y][x] instanceof RedFlower) {
+                if(garden.getFlowers()[x][y] instanceof RedFlower) {
                     drawImage(g, "icons/red_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
-                else if(garden.getFlowers()[y][x] instanceof YellowFlower) {
+                else if(garden.getFlowers()[x][y] instanceof YellowFlower) {
                     drawImage(g, "icons/yellow_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
                 }
-                else if(garden.getFlowers()[y][x] instanceof BlueFlower) {
+                else if(garden.getFlowers()[x][y] instanceof BlueFlower) {
                     drawImage(g, "icons/blue_flower.png", x, y);
                     if(showHP)
                         drawHp(g, x, y);
@@ -114,13 +114,13 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawWeeds(Graphics g, int x, int y) {
-        if(garden.getFlowers()[y][x].getHasWeeds()) {
+        if(garden.getFlowers()[x][y].getHasWeeds()) {
             drawImage(g, "icons/weeds.png", x, y);
         }
     }
 
     private void drawInsects(Graphics g, int x, int y) {
-        if(garden.getFlowers()[y][x].getHasInsects()) {
+        if(garden.getFlowers()[x][y].getHasInsects()) {
             drawImage(g, "icons/insects.png", x, y);
         }
     }
@@ -141,12 +141,12 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawHp(Graphics g, int x, int y) {
-        int hp = garden.getFlowers()[y][x].getHp();
+        int hp = garden.getFlowers()[x][y].getHp();
         g.setFont(new Font("Helvetica", Font.BOLD, UNIT_SIZE / 5));
         drawOutlinedText(g, " HP: " + hp, x * UNIT_SIZE, y * UNIT_SIZE + g.getFont().getSize(), Color.white, Color.black, 2);
     }
 
     private void drawGardener(Graphics g) {
-        drawImage(g, "icons/gardener.png", gardener.positionY, gardener.positionX);
+        drawImage(g, "icons/gardener.png", gardener.positionX, gardener.positionY);
     }
 }

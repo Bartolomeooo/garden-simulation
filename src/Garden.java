@@ -24,8 +24,8 @@ public class Garden {
     public void initialize(int redFlowerRatio, int yellowFlowerRatio, int blueFlowerRatio, int emptySpaceRatio) {
         Random random = new Random();
         double denominator = redFlowerRatio + yellowFlowerRatio + blueFlowerRatio + emptySpaceRatio;
-        for(int x = 0; x < size; x++) {
-            for(int y = 0; y < size; y++) {
+        for(int y = 0; y < size; y++) {
+            for(int x = 0; x < size; x++) {
                 double randomValue = random.nextDouble();
 
                 if(randomValue <= redFlowerRatio / denominator) flowers[x][y] = new RedFlower();
@@ -37,8 +37,8 @@ public class Garden {
     }
 
     public void print() {
-        for(int x = 0; x < size; x++) {
-            for(int y = 0; y < size; y++) {
+        for(int y = 0; y < size; y++) {
+            for(int x = 0; x < size; x++) {
                 if (flowers[x][y] instanceof RedFlower) {
                     System.out.print("R ");
                 } else if (flowers[x][y] instanceof YellowFlower) {
@@ -88,8 +88,8 @@ public class Garden {
     public void spreadWeeds(double probabilityOfWeedsSpread) {
         Random random = new Random();
 
-        for(int x = 0; x < size; x++) {
-            for(int y = 0; y < size; y++) {
+        for(int y = 0; y < size; y++) {
+            for(int x = 0; x < size; x++) {
                 if(flowers[x][y] != null) {
                     double randomValue = random.nextDouble();
                     if(flowers[x][y].getHasWeeds() && randomValue <= probabilityOfWeedsSpread) {
@@ -109,8 +109,8 @@ public class Garden {
     }
 
     public void printInsects() {
-        for(int x = 0; x < size; x++) {
-            for(int y = 0; y < size; y++) {
+        for(int y = 0; y < size; y++) {
+            for(int x = 0; x < size; x++) {
                 if(flowers[x][y] != null) {
                     if(flowers[x][y].getHasInsects()) System.out.print("I ");
                     else System.out.print("F ");
@@ -122,8 +122,8 @@ public class Garden {
     }
 
     public void update() {
-        for(int x = 0; x < size; x++) {
-            for(int y = 0; y < size; y++) {
+        for(int y = 0; y < size; y++) {
+            for(int x = 0; x < size; x++) {
                 if(flowers[x][y] != null) {
                     flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
                     flowers[x][y].updateHp();

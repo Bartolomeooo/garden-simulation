@@ -16,51 +16,51 @@ public class PathFollowingGardener extends Gardener {
     private void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionY + 1 == maxIndex) { // Out of range Y
-                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
+                if (positionX + 1 == maxIndex) { // Out of range X
+                    if (positionY + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
-                        positionY--;
+                        positionX--;
                     } else
-                        positionX++;
+                        positionY++;
 
                     horizontalDirection = "Left";
                 } else
-                    positionY++;
+                    positionX++;
             } else { // Going forward left
-                if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, 0]
+                if (positionX - 1 < 0) { // Out of range X
+                    if (positionY + 1 == maxIndex) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Backwards";
-                        positionY++;
-                    } else
                         positionX++;
+                    } else
+                        positionY++;
 
                     horizontalDirection = "Right";
                 } else
-                    positionY--;
+                    positionX--;
             }
         } else {
             if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionY + 1 == maxIndex) { // Out of range Y
-                    if (positionX - 1 < 0) { // Out of range X and Y [0, maxY]
+                if (positionX + 1 == maxIndex) { // Out of range X
+                    if (positionY - 1 < 0) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Forward";
-                        positionY--;
-                    } else
                         positionX--;
+                    } else
+                        positionY--;
 
                     horizontalDirection = "Left";
                 } else
-                    positionY++;
+                    positionX++;
             } else { // Going backwards left
-                if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX - 1 < 0) { // Out of range X and Y [0, 0]
+                if (positionX - 1 < 0) { // Out of range X
+                    if (positionY - 1 < 0) { // Out of range X and Y [0, 0]
                         verticalDirection = "Forward";
-                        positionY++;
+                        positionX++;
                     } else
-                        positionX--;
+                        positionY--;
 
                     horizontalDirection = "Right";
                 } else
-                    positionY--;
+                    positionX--;
             }
         }
 
@@ -71,51 +71,51 @@ public class PathFollowingGardener extends Gardener {
     private void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionY + 1 == maxIndex) { // Out of range Y
-                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
+                if (positionX + 1 == maxIndex) { // Out of range X
+                    if (positionY + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
-                        positionX--; //
+                        positionY--; //
                     } else
-                        positionX++;
+                        positionY++;
 
                     horizontalDirection = "Left";
                 } else
-                    positionY++;
+                    positionX++;
             } else { // Going forward left
-                if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX + 1 == maxIndex) { // Out of range X and Y [maxX, 0]
+                if (positionX - 1 < 0) { // Out of range X
+                    if (positionY + 1 == maxIndex) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Backwards";
-                        positionX--; //
+                        positionY--; //
                     } else
-                        positionX++;
+                        positionY++;
 
                     horizontalDirection = "Right";
                 } else
-                    positionY--;
+                    positionX--;
             }
         } else {
             if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionY + 1 == maxIndex) { // Out of range Y
-                    if (positionX - 1 < 0) { // Out of range X and Y [0, maxY]
+                if (positionX + 1 == maxIndex) { // Out of range X
+                    if (positionY - 1 < 0) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Forward";
-                        positionX++; //
+                        positionY++; //
                     } else
-                        positionX--;
+                        positionY--;
 
                     horizontalDirection = "Left";
                 } else
-                    positionY++;
+                    positionX++;
             } else { // Going backwards left
-                if (positionY - 1 < 0) { // Out of range Y
-                    if (positionX - 1 < 0) { // Out of range X and Y [0, 0]
+                if (positionX - 1 < 0) { // Out of range X
+                    if (positionY - 1 < 0) { // Out of range X and Y [0, 0]
                         verticalDirection = "Forward";
-                        positionX++; //
+                        positionY++; //
                     } else
-                        positionX--;
+                        positionY--;
 
                     horizontalDirection = "Right";
                 } else
-                    positionY--;
+                    positionX--;
             }
         }
 

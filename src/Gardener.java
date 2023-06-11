@@ -46,14 +46,22 @@ public abstract class Gardener {
 
 
     public void printInsectsAndWeeds(Garden garden) {
-        for (int x = 0; x < garden.getSize(); x++) {
-            for (int y = 0; y < garden.getSize(); y++) {
+        for (int y = 0; y < garden.getSize(); y++) {
+            for (int x = 0; x < garden.getSize(); x++) {
                 if (x == positionX && y == positionY)
                     System.out.printf("%7s|", "▨");
                 else {
                     if(garden.getFlowers()[x][y] == null)
                         System.out.printf("%7s|", "X");
                     else {
+                        if (garden.getFlowers()[x][y] instanceof RedFlower) {
+                            System.out.print("R ");
+                        } else if (garden.getFlowers()[x][y] instanceof YellowFlower) {
+                            System.out.print("Y ");
+                        } else if (garden.getFlowers()[x][y] instanceof BlueFlower) {
+                            System.out.print("B ");
+                        }
+
                         if(garden.getFlowers()[x][y].getHasInsects() && garden.getFlowers()[x][y].getHasWeeds())
                             System.out.printf("%2s%5d|", "■", garden.getFlowers()[x][y].getHp());
                         else if(garden.getFlowers()[x][y].getHasInsects())

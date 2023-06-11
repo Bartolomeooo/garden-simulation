@@ -36,21 +36,21 @@ public class TargetingGardener extends Gardener {
 
     private Vector positionOfTheFirstFlower(Garden garden) {
         Vector vector = new Vector(-1, -1);
-        int x = 0;
+        int y = 0;
 
         do{
-            int y = 0;
+            int x = 0;
             do{
                 if(garden.getFlowers()[x][y] != null) {
                     if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
                         vector = new Vector(x, y);
                 }
-                y++;
+                x++;
 
             }while(y < garden.getSize() && vector.x == -1);
-            x++;
+            y++;
 
-        }while(x < garden.getSize() && vector.x == -1);
+        }while(y < garden.getSize() && vector.x == -1);
 
         if(vector.x == -1) {
             System.out.println("NO FLOWERS IN THE GARDEN");
@@ -65,8 +65,8 @@ public class TargetingGardener extends Gardener {
     private void setTheTargetFlower(Garden garden) {
         Vector minHpIndex = new Vector(positionOfTheFirstFlower(garden));
 
-        for(int x = minHpIndex.x; x < garden.getSize(); x++) {
-            for(int y = 0; y < garden.getSize(); y++) {
+        for(int y = minHpIndex.y; y < garden.getSize(); y++) {
+            for(int x = 0; x < garden.getSize(); x++) {
                 if(garden.getFlowers()[x][y] != null) {
                     if(garden.getFlowers()[x][y].getHp() < garden.getFlowers()[minHpIndex.x][minHpIndex.y].getHp()) {
                         if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
