@@ -127,15 +127,21 @@ public class SettingsPanel extends JPanel implements ActionListener {
                 case "START":
                     try {
                         // Timer setup
+                        setSpeedInRange();
                         int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
                         timer.setDelay(delay);
 
                         // Garden init
+                        setGardenSizeInRange();
                         int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
 
+                        setRatioInRange(redRatio);
                         int redRatioNumber = Integer.parseInt(((JTextField) redRatio.getComponent()).getText());
+                        setRatioInRange(yellowRatio);
                         int yellowRatioNumber = Integer.parseInt(((JTextField) yellowRatio.getComponent()).getText());
+                        setRatioInRange(blueRatio);
                         int blueRatioNumber = Integer.parseInt(((JTextField) blueRatio.getComponent()).getText());
+                        setRatioInRange(emptyRatio);
                         int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
 
                         simulationPanel.setGarden(new Garden(size));
@@ -194,6 +200,36 @@ public class SettingsPanel extends JPanel implements ActionListener {
         }
 
         simulationPanel.repaint();
+    }
+
+    private void setSpeedInRange() {
+        int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
+        int maxDelay = 5000; // 5000ms = 5s
+
+        if(delay > maxDelay) {
+           ((JTextField) speed.getComponent()).setText(Integer.toString(maxDelay));
+        }
+    }
+
+    private void setGardenSizeInRange() {
+        int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
+        int maxSize = 30;
+
+        if(size > maxSize) {
+            ((JTextField) gardenSize.getComponent()).setText(Integer.toString(maxSize));
+        }
+    }
+
+    private void setRatioInRange(LabeledComponent labeledComponent) {
+        int ratio = Integer.parseInt(((JTextField) labeledComponent.getComponent()).getText());
+        int maxRatio = 999;
+
+        if(ratio > maxRatio) {
+            ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(maxRatio));
+        }
+        else if (ratio < 0) {
+            ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(0));
+        }
     }
 
 
