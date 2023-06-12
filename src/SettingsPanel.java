@@ -134,6 +134,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
                         gardenInit();
                         gardenerInit();
                         simulationInit();
+                        graphicsInit();
 
                         running = true;
                         startStopButton.setText("STOP");
@@ -182,18 +183,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
         simulationPanel.setGarden(new Garden(size));
         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
         simulationPanel.getGarden().print(); // Debug
-
-        // Weeds and Insect icons
-        try {
-            BufferedImage image = ImageIO.read(new File("icons/weeds.png"));
-            Garden.setWeedsIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/insects.png"));
-            Garden.setInsectIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void gardenerInit() {
@@ -216,20 +205,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private void simulationInit() {
         SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
 
-        try {
-            BufferedImage image = ImageIO.read(new File("icons/red_flower.png"));
-            RedFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/blue_flower.png"));
-            BlueFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/yellow_flower.png"));
-            YellowFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-        } catch (IOException e) {
-                e.printStackTrace();
-        }
-
         if(((JCheckBox) showHP.getComponent()).isSelected()) {
             simulationPanel.setShowHP(true);
         }
@@ -242,6 +217,34 @@ public class SettingsPanel extends JPanel implements ActionListener {
         }
         else {
             simulationPanel.setShowGrid(false);
+        }
+    }
+
+    private void graphicsInit() {
+        try {
+            // Flowers
+            BufferedImage image = ImageIO.read(new File("icons/red_flower.png"));
+            RedFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+            image = ImageIO.read(new File("icons/blue_flower.png"));
+            BlueFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+            image = ImageIO.read(new File("icons/yellow_flower.png"));
+            YellowFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+            // Weeds and Insect icons
+            image = ImageIO.read(new File("icons/weeds.png"));
+            Garden.setWeedsIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+            image = ImageIO.read(new File("icons/insects.png"));
+            Garden.setInsectIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+            // Gardener
+            image = ImageIO.read(new File("icons/gardener.png"));
+            Gardener.setGardenerIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
