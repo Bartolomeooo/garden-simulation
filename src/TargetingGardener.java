@@ -47,7 +47,7 @@ public class TargetingGardener extends Gardener {
                 }
                 x++;
 
-            }while(y < garden.getSize() && vector.x == -1);
+            }while(x < garden.getSize() && vector.x == -1);
             y++;
 
         }while(y < garden.getSize() && vector.x == -1);
