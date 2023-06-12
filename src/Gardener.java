@@ -1,8 +1,10 @@
+import java.awt.*;
+
 public abstract class Gardener {
     protected int positionX;
     protected int positionY;
     protected int actionTimer;
-
+    private static Image gardenerIcon;
 
     public Gardener() {
         positionX = 0;
@@ -10,6 +12,12 @@ public abstract class Gardener {
         actionTimer = 0;
     }
 
+    public static void setGardenerIcon(Image gardnerIcon) {
+        Gardener.gardenerIcon = gardnerIcon;
+    }
+    public static Image getGardenerIcon() {
+        return gardenerIcon;
+    }
 
     protected int water(Garden garden) { // - Returns how much time gardener needs to water the flower
         garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration

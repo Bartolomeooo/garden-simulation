@@ -146,6 +146,6 @@ public class SimulationPanel extends JPanel {
     }
 
     private void drawGardener(Graphics g) {
-        drawImage(g, "icons/gardener.png", gardener.positionX, gardener.positionY);
+        g.drawImage(Gardener.getGardenerIcon(), gardener.positionX * UNIT_SIZE, gardener.positionY * UNIT_SIZE, this);
     }
 }
