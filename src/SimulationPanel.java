@@ -6,8 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SimulationPanel extends JPanel {
-    static final int SCREEN_WIDTH = 700;
-    static final int SCREEN_HEIGHT = 700;
+    static final int SCREEN_SIZE = 750;
     static int UNIT_SIZE;
     private Garden garden;
     private Gardener gardener;
@@ -16,12 +15,12 @@ public class SimulationPanel extends JPanel {
     private BufferedImage backgroundImage;
 
     SimulationPanel(Garden garden, Gardener gardener) {
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
         this.setBackground(new Color(7, 133, 4));
         this.setFocusable(true);
         this.garden = garden;
         this.gardener = gardener;
-        UNIT_SIZE = SCREEN_WIDTH / garden.getSize();
+        UNIT_SIZE = SCREEN_SIZE / garden.getSize();
         showHP = false;
         showGrid = false;
     }
@@ -70,9 +69,9 @@ public class SimulationPanel extends JPanel {
 
     private void drawGrid(Graphics g) {
         g.setColor(Color.black);
-        for(int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-            g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT); //vertical
-            g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE); //horizontal
+        for(int i = 0; i < SCREEN_SIZE / UNIT_SIZE; i++) {
+            g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_SIZE); //vertical
+            g.drawLine(0, i*UNIT_SIZE, SCREEN_SIZE, i*UNIT_SIZE); //horizontal
         }
     }
 

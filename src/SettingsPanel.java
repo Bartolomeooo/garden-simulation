@@ -10,7 +10,7 @@ import java.io.IOException;
 public class SettingsPanel extends JPanel implements ActionListener {
     private final SimulationPanel simulationPanel;
     static final int SCREEN_WIDTH = 300;
-    static final int SCREEN_HEIGHT = 700;
+    static final int SCREEN_HEIGHT = 750;
     private boolean running;
     private final LabeledComponent speed;
     private final LabeledComponent gardenSize;
@@ -203,7 +203,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
     }
 
     private void simulationInit() {
-        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_WIDTH / simulationPanel.getGarden().getSize();
+        SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_SIZE / simulationPanel.getGarden().getSize();
 
         if(((JCheckBox) showHP.getComponent()).isSelected()) {
             simulationPanel.setShowHP(true);
@@ -260,7 +260,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
     private void setGardenSizeInRange() {
         int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
-        int maxSize = 30;
+        int maxSize = 50;
 
         if(size > maxSize) {
             ((JTextField) gardenSize.getComponent()).setText(Integer.toString(maxSize));
