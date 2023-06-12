@@ -1,9 +1,5 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class SimulationPanel extends JPanel {
     static final int SCREEN_SIZE = 750;
@@ -12,7 +8,7 @@ public class SimulationPanel extends JPanel {
     private Gardener gardener;
     private boolean showHP;
     private boolean showGrid;
-    private BufferedImage backgroundImage;
+
 
     SimulationPanel(Garden garden, Gardener gardener) {
         this.setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
@@ -49,6 +45,7 @@ public class SimulationPanel extends JPanel {
         this.showGrid = showGrid;
     }
 
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
@@ -63,25 +60,11 @@ public class SimulationPanel extends JPanel {
             drawGrid(g);
     }
 
-    private void drawBackground(Graphics g) {
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-    }
-
     private void drawGrid(Graphics g) {
         g.setColor(Color.black);
         for(int i = 0; i < SCREEN_SIZE / UNIT_SIZE; i++) {
             g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_SIZE); //vertical
             g.drawLine(0, i*UNIT_SIZE, SCREEN_SIZE, i*UNIT_SIZE); //horizontal
-        }
-    }
-
-    private void drawImage(Graphics g, String filename, int x, int y) {
-        try {
-            BufferedImage image = ImageIO.read(new File(filename));
-            Image scaledImage = image.getScaledInstance(UNIT_SIZE, UNIT_SIZE, Image.SCALE_SMOOTH);
-            g.drawImage(scaledImage, x * UNIT_SIZE, y * UNIT_SIZE, this);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -1,13 +1,8 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.Random;
 
 public class Garden {
-    private int size;
+    private final int size;
     private final Flower[][] flowers;
 
     private static Image weedsIcon;
@@ -42,6 +37,7 @@ public class Garden {
         return flowers;
     }
 
+
     public void initialize(int redFlowerRatio, int yellowFlowerRatio, int blueFlowerRatio, int emptySpaceRatio) {
         Random random = new Random();
         double denominator = redFlowerRatio + yellowFlowerRatio + blueFlowerRatio + emptySpaceRatio;
@@ -57,20 +53,18 @@ public class Garden {
         }
     }
 
-    public void print() {
+    public void update() {
         for(int y = 0; y < size; y++) {
             for(int x = 0; x < size; x++) {
-                if (flowers[x][y] instanceof RedFlower) {
-                    System.out.print("R ");
-                } else if (flowers[x][y] instanceof YellowFlower) {
-                    System.out.print("Y ");
-                } else if (flowers[x][y] instanceof BlueFlower) {
-                    System.out.print("B ");
-                } else {
-                    System.out.print("X ");
+                if(flowers[x][y] != null) {
+                    flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
+                    flowers[x][y].updateHp();
+                    if(flowers[x][y].getHp() <= 0) {
+                        flowers[x][y] = null;
+                        Audio.play("sounds/flower_death_16bit.wav");
+                    }
                 }
             }
-            System.out.println();
         }
     }
 
@@ -129,31 +123,20 @@ public class Garden {
         }
     }
 
-    public void printInsects() {
+    public void print() {
         for(int y = 0; y < size; y++) {
             for(int x = 0; x < size; x++) {
-                if(flowers[x][y] != null) {
-                    if(flowers[x][y].getHasInsects()) System.out.print("I ");
-                    else System.out.print("F ");
+                if (flowers[x][y] instanceof RedFlower) {
+                    System.out.print("R ");
+                } else if (flowers[x][y] instanceof YellowFlower) {
+                    System.out.print("Y ");
+                } else if (flowers[x][y] instanceof BlueFlower) {
+                    System.out.print("B ");
+                } else {
+                    System.out.print("X ");
                 }
-                else System.out.print(". ");
             }
             System.out.println();
-        }
-    }
-
-    public void update() {
-        for(int y = 0; y < size; y++) {
-            for(int x = 0; x < size; x++) {
-                if(flowers[x][y] != null) {
-                    flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
-                    flowers[x][y].updateHp();
-                    if(flowers[x][y].getHp() <= 0) {
-                        flowers[x][y] = null;
-                        Audio.play("sounds/flower_death_16bit.wav");
-                    }
-                }
-            }
         }
     }
 }

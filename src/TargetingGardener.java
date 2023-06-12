@@ -8,30 +8,58 @@ public class TargetingGardener extends Gardener {
         targetFlower = new Vector(positionX, positionY);
     }
 
-    private class Vector {
-        private int x;
-        private int y;
 
-        public Vector(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public Vector(Vector vector) {
-            this.x = vector.x;
-            this.y = vector.y;
+    @Override
+    public void update(Garden garden) {
+        if(actionTimer > 0) {
+            actionTimer--;
+            water(garden);
+            removeInsects(garden);
+            removeWeeds(garden);
+            setTheTargetFlower(garden);
+        } else {
+            moveToTheTarget(garden);
+            Audio.play("sounds/footstep_fx_16bit.wav");
         }
     }
 
-    private Vector add(Vector first, Vector second) {
-        int x = first.x + second.x;
-        int y = first.y + second.y;
+    private void moveToTheTarget(Garden garden) {
+        Vector gardenerVector = new Vector(positionX, positionY);
+        Vector directionVector = makeDirectionVector(gardenerVector, targetFlower);
+        System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
 
-        return new Vector(x, y);
+        Vector sum = Vector.add(gardenerVector, directionVector);
+        positionX = sum.x;
+        positionY = sum.y;
+
+        if(positionX == targetFlower.x && positionY == targetFlower.y) {
+            if(garden.getFlowers()[positionX][positionY] != null) {
+                //Debug
+                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
+
+                actionTimer += timeToHealTheFlower(garden);
+            }
+            else
+                setTheTargetFlower(garden);
+        }
     }
 
-    private int damageBeforeGardenerArrival(Garden garden, int x, int y) { // Returns the amount of damage the flower will take until Gardener arrives based on their positions
-        return (abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick();
+    private void setTheTargetFlower(Garden garden) {
+        Vector minHpIndex = new Vector(positionOfTheFirstFlower(garden));
+
+        for(int y = minHpIndex.y; y < garden.getSize(); y++) {
+            for(int x = 0; x < garden.getSize(); x++) {
+                if(garden.getFlowers()[x][y] != null) {
+                    if(garden.getFlowers()[x][y].getHp() < garden.getFlowers()[minHpIndex.x][minHpIndex.y].getHp()) {
+                        if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
+                            minHpIndex = new Vector(x, y);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Target Flower: [" + minHpIndex.x + ", " + minHpIndex.y + "]");
+        targetFlower = minHpIndex;
     }
 
     private Vector positionOfTheFirstFlower(Garden garden) {
@@ -62,22 +90,8 @@ public class TargetingGardener extends Gardener {
         return vector;
     }
 
-    private void setTheTargetFlower(Garden garden) {
-        Vector minHpIndex = new Vector(positionOfTheFirstFlower(garden));
-
-        for(int y = minHpIndex.y; y < garden.getSize(); y++) {
-            for(int x = 0; x < garden.getSize(); x++) {
-                if(garden.getFlowers()[x][y] != null) {
-                    if(garden.getFlowers()[x][y].getHp() < garden.getFlowers()[minHpIndex.x][minHpIndex.y].getHp()) {
-                        if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
-                            minHpIndex = new Vector(x, y);
-                    }
-                }
-            }
-        }
-
-        System.out.println("Target Flower: [" + minHpIndex.x + ", " + minHpIndex.y + "]");
-        targetFlower = minHpIndex;
+    private int damageBeforeGardenerArrival(Garden garden, int x, int y) { // Returns the amount of damage the flower will take until Gardener arrives based on their positions
+        return (abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick();
     }
 
     private Vector makeDirectionVector(Vector start, Vector end) {
@@ -106,38 +120,27 @@ public class TargetingGardener extends Gardener {
             return new Vector(0 , 0); //sum = [0, 0]
     }
 
-    private void moveToTheTarget(Garden garden) {
-        Vector gardenerVector = new Vector(positionX, positionY);
-        Vector directionVector = makeDirectionVector(gardenerVector, targetFlower);
-        System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
 
-        Vector sum = add(gardenerVector, directionVector);
-        positionX = sum.x;
-        positionY = sum.y;
 
-        if(positionX == targetFlower.x && positionY == targetFlower.y) {
-            if(garden.getFlowers()[positionX][positionY] != null) {
-                //Debug
-                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
+    private static class Vector {
+        private int x;
+        private int y;
 
-                actionTimer += timeToHealTheFlower(garden);
-            }
-            else
-                setTheTargetFlower(garden);
+        public Vector(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
-    }
 
-    @Override
-    public void update(Garden garden) {
-        if(actionTimer > 0) {
-            actionTimer--;
-            water(garden);
-            removeInsects(garden);
-            removeWeeds(garden);
-            setTheTargetFlower(garden);
-        } else {
-            moveToTheTarget(garden);
-            Audio.play("sounds/footstep_fx_16bit.wav");
+        public Vector(Vector vector) {
+            this.x = vector.x;
+            this.y = vector.y;
+        }
+
+        private static Vector add(Vector first, Vector second) {
+            int x = first.x + second.x;
+            int y = first.y + second.y;
+
+            return new Vector(x, y);
         }
     }
 }

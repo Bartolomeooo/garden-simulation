@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-//import java.util.Random;
 
 public class SettingsPanel extends JPanel implements ActionListener {
     private final SimulationPanel simulationPanel;
@@ -111,6 +110,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         return simulationPanel;
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(running) {
@@ -186,38 +186,23 @@ public class SettingsPanel extends JPanel implements ActionListener {
     }
 
     private void gardenerInit() {
-        switch(movementIndex) {
-            case 0: // "Target the one with the lowest HP"
-                simulationPanel.setGardener(new TargetingGardener());
-                break;
-            case 1: // "Move randomly"
-                simulationPanel.setGardener(new PathFollowingGardener(1));
-                break;
-            case 2: // "Pattern 1"
-                simulationPanel.setGardener(new PathFollowingGardener(2));
-                break;
-            case 3: // "Pattern 2"
-                simulationPanel.setGardener(new PathFollowingGardener(3));
-                break;
+        switch (movementIndex) {
+            case 0 -> // "Target the one with the lowest HP"
+                    simulationPanel.setGardener(new TargetingGardener());
+            case 1 -> // "Move randomly"
+                    simulationPanel.setGardener(new PathFollowingGardener(1));
+            case 2 -> // "Pattern 1"
+                    simulationPanel.setGardener(new PathFollowingGardener(2));
+            case 3 -> // "Pattern 2"
+                    simulationPanel.setGardener(new PathFollowingGardener(3));
         }
     }
 
     private void simulationInit() {
         SimulationPanel.UNIT_SIZE = SimulationPanel.SCREEN_SIZE / simulationPanel.getGarden().getSize();
 
-        if(((JCheckBox) showHP.getComponent()).isSelected()) {
-            simulationPanel.setShowHP(true);
-        }
-        else {
-            simulationPanel.setShowHP(false);
-        }
-
-        if(((JCheckBox) showGrid.getComponent()).isSelected()) {
-            simulationPanel.setShowGrid(true);
-        }
-        else {
-            simulationPanel.setShowGrid(false);
-        }
+        simulationPanel.setShowHP(((JCheckBox) showHP.getComponent()).isSelected());
+        simulationPanel.setShowGrid(((JCheckBox) showGrid.getComponent()).isSelected());
     }
 
     private void graphicsInit() {
@@ -281,12 +266,10 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
 
 
-    private class LabeledComponent extends JPanel {
-        private final JLabel label;
+    private static class LabeledComponent extends JPanel {
         private final JComponent component;
-        private final Font font = new Font("Arial", Font.PLAIN, 20);
-        private Dimension componentDimension = new Dimension(60,30);
-        private Dimension panelDimension = new Dimension((int) componentDimension.getWidth() + 20, (int) componentDimension.getHeight() + 40);
+        private final Dimension componentDimension = new Dimension(60,30);
+        private final Dimension panelDimension = new Dimension((int) componentDimension.getWidth() + 20, (int) componentDimension.getHeight() + 40);
 
         public LabeledComponent(String text, JComponent component) {
             // Panel settings
@@ -297,7 +280,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
             this.setBackground(new Color(245, 240, 210));
 
             // Label
-            label = new JLabel(text);
+            JLabel label = new JLabel(text);
             label.setAlignmentX(0.5f);
             this.add(label);
 
@@ -305,6 +288,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
             this.component = component;
 
             if(component instanceof JTextField) {
+                Font font = new Font("Arial", Font.PLAIN, 20);
                 component.setFont(font);
             }
             else if(component instanceof JCheckBox) {

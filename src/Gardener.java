@@ -19,6 +19,13 @@ public abstract class Gardener {
         return gardenerIcon;
     }
 
+
+    public void update(Garden garden) {}
+
+    protected int timeToHealTheFlower(Garden garden) { // How much time (ticks) gardener needs to heal the flower
+        return water(garden) + removeInsects(garden) + removeWeeds(garden);
+    }
+
     protected int water(Garden garden) { // - Returns how much time gardener needs to water the flower
         garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration
         garden.getFlowers()[positionX][positionY].setHp(1000); //max hp
@@ -45,12 +52,6 @@ public abstract class Gardener {
 
         return 0;
     }
-
-    protected int timeToHealTheFlower(Garden garden) { // How much time (ticks) gardener needs to heal the flower
-        return water(garden) + removeInsects(garden) + removeWeeds(garden);
-    }
-
-    public void update(Garden garden) {}
 
 
     public void printInsectsAndWeeds(Garden garden) {

@@ -5,12 +5,37 @@ public class PathFollowingGardener extends Gardener {
     private String verticalDirection;
     private final int movementIndex;
 
-
     public PathFollowingGardener(int movementIndex) {
         super();
         horizontalDirection = "Right";
         verticalDirection = "Forward";
         this.movementIndex = movementIndex;
+    }
+
+
+    @Override
+    public void update(Garden garden) {
+        if(actionTimer > 0) {
+            actionTimer--;
+            water(garden);
+            removeInsects(garden);
+            removeWeeds(garden);
+        } else {
+            Audio.play("sounds/footstep_fx_16bit.wav");
+
+            switch (movementIndex) { // Move
+                case 1 -> moveRandomly(garden);
+                case 2 -> retractingSnakeMove(garden.getSize());
+                case 3 -> turningSnakeMove(garden.getSize());
+            }
+
+            if(garden.getFlowers()[positionX][positionY] != null) {
+                //Debug
+                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
+
+                actionTimer += this.timeToHealTheFlower(garden);
+            }
+        }
     }
 
     private void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
@@ -148,36 +173,5 @@ public class PathFollowingGardener extends Gardener {
 
         positionX += displacementX;
         positionY += displacementY;
-    }
-
-    @Override
-    public void update(Garden garden) {
-        if(actionTimer > 0) {
-            actionTimer--;
-            water(garden);
-            removeInsects(garden);
-            removeWeeds(garden);
-        } else {
-            Audio.play("sounds/footstep_fx_16bit.wav");
-
-            switch(movementIndex){ // Move
-                case 1:
-                    moveRandomly(garden);
-                    break;
-                case 2:
-                    retractingSnakeMove(garden.getSize());
-                    break;
-                case 3:
-                    turningSnakeMove(garden.getSize());
-                    break;
-            }
-
-            if(garden.getFlowers()[positionX][positionY] != null) {
-                //Debug
-                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
-
-                actionTimer += this.timeToHealTheFlower(garden);
-            }
-        }
     }
 }
