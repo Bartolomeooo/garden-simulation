@@ -4,7 +4,7 @@ public class GardenSimulation {
         garden.initialize(0, 0, 0, 0);
 
         Gardener gardener = new TargetingGardener();
-        gardener.printInsectsAndWeeds(garden);
+        gardener.print(garden);
         System.out.println();
 
         new SimulationFrame(garden, gardener, false);

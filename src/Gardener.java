@@ -54,36 +54,54 @@ public abstract class Gardener {
     }
 
 
-    public void printInsectsAndWeeds(Garden garden) {
+    public void print(Garden garden) {
         for (int y = 0; y < garden.getSize(); y++) {
             for (int x = 0; x < garden.getSize(); x++) {
-                if (x == positionX && y == positionY)
-                    System.out.printf("%7s|", "▨");
-                else {
-                    if(garden.getFlowers()[x][y] == null)
-                        System.out.printf("%7s|", "X");
-                    else {
-                        if (garden.getFlowers()[x][y] instanceof RedFlower) {
-                            System.out.print("R ");
-                        } else if (garden.getFlowers()[x][y] instanceof YellowFlower) {
-                            System.out.print("Y ");
-                        } else if (garden.getFlowers()[x][y] instanceof BlueFlower) {
-                            System.out.print("B ");
-                        }
-
-                        if(garden.getFlowers()[x][y].getHasInsects() && garden.getFlowers()[x][y].getHasWeeds())
-                            System.out.printf("%2s%5d|", "■", garden.getFlowers()[x][y].getHp());
-                        else if(garden.getFlowers()[x][y].getHasInsects())
-                            System.out.printf("%2s%5d|", "◧", garden.getFlowers()[x][y].getHp());
-                        else if(garden.getFlowers()[x][y].getHasWeeds())
-                            System.out.printf("%2s%5d|", "◨", garden.getFlowers()[x][y].getHp());
-                        else
-                            System.out.printf("%2s%5d|", "□", garden.getFlowers()[x][y].getHp());
-                    }
-                }
+                printGardener(x, y);
+                printFlowers(garden, x, y);
             }
             System.out.println();
         }
         System.out.println("================================================================================");
+    }
+
+    private static final String resetColor = "\u001B[0m";
+
+    private void printGardener(int x, int y) {
+        if (x == positionX && y == positionY) {
+            System.out.print("\u001B[35m" + "▨" + resetColor);
+        }
+        else {
+            System.out.print(" ");
+        }
+    }
+
+    private void printFlowers(Garden garden, int x, int y) {
+        if(garden.getFlowers()[x][y] == null) {
+            System.out.print("\u001B[30m" + " X" + resetColor);
+            System.out.printf("%7s | ", "");
+        }
+        else {
+            if (garden.getFlowers()[x][y] instanceof RedFlower) {
+                System.out.print("\u001B[31m" + " R" + resetColor);
+            } else if (garden.getFlowers()[x][y] instanceof YellowFlower) {
+                System.out.print("\u001B[33m" + " Y" + resetColor);
+            } else if (garden.getFlowers()[x][y] instanceof BlueFlower) {
+                System.out.print("\u001B[34m" + " B" + resetColor);
+            }
+
+            printInsectsAndWeeds(garden, x, y);
+        }
+    }
+
+    private void printInsectsAndWeeds(Garden garden, int x, int y) {
+        if(garden.getFlowers()[x][y].getHasInsects() && garden.getFlowers()[x][y].getHasWeeds())
+            System.out.printf("%2s%5d | ", "■", garden.getFlowers()[x][y].getHp());
+        else if(garden.getFlowers()[x][y].getHasInsects())
+            System.out.printf("%2s%5d | ", "◧", garden.getFlowers()[x][y].getHp());
+        else if(garden.getFlowers()[x][y].getHasWeeds())
+            System.out.printf("%2s%5d | ", "◨", garden.getFlowers()[x][y].getHp());
+        else
+            System.out.printf("%2s%5d | ", "□", garden.getFlowers()[x][y].getHp());
     }
 }

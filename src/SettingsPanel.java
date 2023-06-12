@@ -123,7 +123,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
             // Gardener update
             simulationPanel.getGardener().update(simulationPanel.getGarden());
-            simulationPanel.getGardener().printInsectsAndWeeds(simulationPanel.getGarden()); //debug
+            simulationPanel.getGardener().print(simulationPanel.getGarden()); // Debug
         }
 
         if(e.getSource() == startStopButton) {
