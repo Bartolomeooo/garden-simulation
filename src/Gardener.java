@@ -27,8 +27,8 @@ public abstract class Gardener {
     }
 
     protected int water(Garden garden) { // - Returns how much time gardener needs to water the flower
-        garden.getFlowers()[positionX][positionY].setHydration(50); //max hydration
-        garden.getFlowers()[positionX][positionY].setHp(1000); //max hp
+        garden.getFlowers()[positionX][positionY].setHydration(Flower.maxHydration);
+        garden.getFlowers()[positionX][positionY].setHp(Flower.maxHp);
 
         Audio.play("sounds/flower_revival_fx_16bit.wav");
 

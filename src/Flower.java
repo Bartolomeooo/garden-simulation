@@ -1,4 +1,7 @@
 public interface Flower {
+    int maxHp = 1000;
+    int maxHydration = 50;
+
     int getHp();
     void setHp(int hp);
 
@@ -12,6 +15,5 @@ public interface Flower {
     void setHasWeeds(boolean hasWeeds);
 
     void updateHp();
-
     int currentDamagePerTick();
 }

@@ -10,8 +10,8 @@ public class RedFlower implements Flower {
 
 
     public RedFlower() {
-        hp = 1000;
-        hydration = 50;
+        hp = maxHp;
+        hydration = maxHydration;
         hasInsects = false;
         hasWeeds = false;
 
