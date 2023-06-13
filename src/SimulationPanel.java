@@ -49,11 +49,9 @@ public class SimulationPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
-        repaint();
     }
 
     public void draw(Graphics g) {
-        //  drawBackground(g);
         drawGardener(g);
         drawFlowers(g);
         if(showGrid)
