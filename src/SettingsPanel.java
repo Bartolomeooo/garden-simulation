@@ -117,9 +117,9 @@ public class SettingsPanel extends JPanel implements ActionListener {
             // Garden update
             simulationPanel.getGarden().update();
 
-            simulationPanel.getGarden().insertInsect(0.3);
-            simulationPanel.getGarden().insertWeeds(0.3);
-            simulationPanel.getGarden().spreadWeeds(0.01);
+            simulationPanel.getGarden().insertInsect(0.05);
+            simulationPanel.getGarden().insertWeeds(0.05);
+            simulationPanel.getGarden().spreadWeeds(0.005);
 
             // Gardener update
             simulationPanel.getGardener().update(simulationPanel.getGarden());

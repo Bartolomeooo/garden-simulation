@@ -1,6 +1,6 @@
 public interface Flower {
-    int maxHp = 1000;
-    int maxHydration = 50;
+    int maxHp = 5000;
+    int maxHydration = 100;
 
     int getHp();
     void setHp(int hp);

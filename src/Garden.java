@@ -57,7 +57,7 @@ public class Garden {
         for(int y = 0; y < size; y++) {
             for(int x = 0; x < size; x++) {
                 if(flowers[x][y] != null) {
-                    flowers[x][y].setHydration(flowers[x][y].getHydration() - 5);
+                    flowers[x][y].setHydration(flowers[x][y].getHydration() - 1);
                     flowers[x][y].updateHp();
                     if(flowers[x][y].getHp() <= 0) {
                         flowers[x][y] = null;
