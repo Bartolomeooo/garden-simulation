@@ -26,7 +26,7 @@ public class TargetingGardener extends Gardener {
     private void moveToTheTarget(Garden garden) {
         Vector gardenerVector = new Vector(positionX, positionY);
         Vector directionVector = makeDirectionVector(gardenerVector, targetFlower);
-        System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
+        //System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
 
         Vector sum = Vector.add(gardenerVector, directionVector);
         positionX = sum.x;
@@ -34,9 +34,6 @@ public class TargetingGardener extends Gardener {
 
         if(positionX == targetFlower.x && positionY == targetFlower.y) {
             if(garden.getFlowers()[positionX][positionY] != null) {
-                //Debug
-                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
-
                 actionTimer += timeToHealTheFlower(garden);
             }
             else

@@ -30,9 +30,6 @@ public class PathFollowingGardener extends Gardener {
             }
 
             if(garden.getFlowers()[positionX][positionY] != null) {
-                //Debug
-                System.out.println("Insects: " + garden.getFlowers()[positionX][positionY].getHasInsects() + "\nWeeds: " + garden.getFlowers()[positionX][positionY].getHasWeeds());
-
                 actionTimer += this.timeToHealTheFlower(garden);
             }
         }
@@ -88,9 +85,6 @@ public class PathFollowingGardener extends Gardener {
                     positionX--;
             }
         }
-
-        // Debug
-        System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
     }
 
     private void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
@@ -143,9 +137,6 @@ public class PathFollowingGardener extends Gardener {
                     positionX--;
             }
         }
-
-        // Debug
-        System.out.println(verticalDirection + ", " + horizontalDirection + " [" + positionX + "," + positionY + "]");
     }
 
     private boolean isOutOfRange(int positionX, int positionY, int maxX, int maxY) {

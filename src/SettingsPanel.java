@@ -182,7 +182,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         // Initialization
         simulationPanel.setGarden(new Garden(size));
         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
-        simulationPanel.getGarden().print(); // Debug
+        System.out.println("==================================NEW GARDEN====================================");
     }
 
     private void gardenerInit() {
