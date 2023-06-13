@@ -237,30 +237,39 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private void setSpeedInRange() {
         int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
         int maxDelay = 5000; // 5000ms = 5s
+        int minDelay = 0; // As fast as possible
 
         if(delay > maxDelay) {
-           ((JTextField) speed.getComponent()).setText(Integer.toString(maxDelay));
+            ((JTextField) speed.getComponent()).setText(Integer.toString(maxDelay));
+        }
+        else if(delay < minDelay) {
+            ((JTextField) speed.getComponent()).setText(Integer.toString(minDelay));
         }
     }
 
     private void setGardenSizeInRange() {
         int size = Integer.parseInt(((JTextField) gardenSize.getComponent()).getText());
         int maxSize = 50;
+        int minSize = 2;
 
         if(size > maxSize) {
             ((JTextField) gardenSize.getComponent()).setText(Integer.toString(maxSize));
+        }
+        else if(size < minSize) {
+            ((JTextField) gardenSize.getComponent()).setText(Integer.toString(minSize));
         }
     }
 
     private void setRatioInRange(LabeledComponent labeledComponent) {
         int ratio = Integer.parseInt(((JTextField) labeledComponent.getComponent()).getText());
         int maxRatio = 999;
+        int minRatio = 0;
 
         if(ratio > maxRatio) {
             ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(maxRatio));
         }
-        else if (ratio < 0) {
-            ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(0));
+        else if(ratio < minRatio) {
+            ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(minRatio));
         }
     }
 
