@@ -135,6 +135,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
                         gardenerInit();
                         simulationInit();
                         graphicsInit();
+                        Statistics.clearFile("statistics/garden_simulation.txt");
 
                         running = true;
                         startStopButton.setText("STOP");

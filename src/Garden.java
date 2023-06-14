@@ -49,6 +49,8 @@ public class Garden {
                 else if(randomValue <= (redFlowerRatio + yellowFlowerRatio) / denominator) flowers[x][y] = new YellowFlower();
                 else if(randomValue <= (redFlowerRatio + yellowFlowerRatio + blueFlowerRatio) / denominator) flowers[x][y] = new BlueFlower();
                 else flowers[x][y] = null;
+
+                if(flowers[x][y] != null) Statistics.setInitialStatistics(flowers[x][y]);
             }
         }
     }
@@ -59,6 +61,7 @@ public class Garden {
                 if(flowers[x][y] != null) {
                     flowers[x][y].setHydration(flowers[x][y].getHydration() - 1);
                     flowers[x][y].updateHp();
+                    Statistics.update(flowers[x][y]);
                     if(flowers[x][y].getHp() <= 0) {
                         flowers[x][y] = null;
                         Audio.play("sounds/flower_death_16bit.wav");
@@ -66,6 +69,7 @@ public class Garden {
                 }
             }
         }
+        Statistics.saveToFile("statistics/garden_simulation.txt");
     }
 
     public void insertInsect(double probabilityOfInsectAppearance) {
