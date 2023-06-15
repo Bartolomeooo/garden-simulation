@@ -24,6 +24,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final LabeledComponent showHP;
     private final LabeledComponent showGrid;
     private final JButton startStopButton;
+    private final LabeledComponent soundEffects;
     private final String[] movementText;
     private int movementIndex;
     private final Timer timer;
@@ -107,6 +108,16 @@ public class SettingsPanel extends JPanel implements ActionListener {
         startStopButton = new JButton("START");
         this.add(startStopButton);
         startStopButton.setAlignmentX(0.5f);
+
+        // Space
+        JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(300,300));
+        panel.setBackground(new Color(245, 240, 210));
+        this.add(panel);
+
+        // Sound effects setting
+        soundEffects = new LabeledComponent("Sound effects", new JCheckBox());
+        this.add(soundEffects);
 
         // Make buttons functional
         ((JButton) gardenerMovement.getComponent()).addActionListener(this);
@@ -225,6 +236,8 @@ public class SettingsPanel extends JPanel implements ActionListener {
 
         simulationPanel.setShowHP(((JCheckBox) showHP.getComponent()).isSelected());
         simulationPanel.setShowGrid(((JCheckBox) showGrid.getComponent()).isSelected());
+
+        Audio.setOn(((JCheckBox) soundEffects.getComponent()).isSelected());
     }
 
     private void graphicsInit() {

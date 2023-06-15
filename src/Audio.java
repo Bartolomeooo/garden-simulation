@@ -2,6 +2,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 
 public class Audio {
+    private static boolean on = true;
     private static Clip footstep;
     private static Clip flowerDeath;
     private static Clip flowerRevival;
@@ -19,6 +20,9 @@ public class Audio {
         return flowerRevival;
     }
 
+    public static void setOn(boolean on) {
+        Audio.on = on;
+    }
 
     public static void open() {
         try {
@@ -43,11 +47,13 @@ public class Audio {
     }
 
     public static void play(Clip clip) {
-        clip.stop();
-        clip.setMicrosecondPosition(0);
+        if(on) {
+            clip.stop();
+            clip.setMicrosecondPosition(0);
 
-        while(!clip.isActive()) {
-            clip.start();
+            while(!clip.isActive()) {
+                clip.start();
+            }
         }
     }
 
