@@ -1,10 +1,10 @@
 import javax.swing.*;
 
 public class SimulationFrame extends JFrame {
-    SimulationFrame(Garden garden, Gardener gardener, boolean running) {
+    SimulationFrame(Garden garden, Gardener gardener) {
         JPanel panel = new JPanel();
         // Settings Panel
-        SettingsPanel settingsPanel = new SettingsPanel(garden, gardener, running);
+        SettingsPanel settingsPanel = new SettingsPanel(garden, gardener);
         panel.add(settingsPanel);
 
         // Graphics panel

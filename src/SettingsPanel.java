@@ -17,6 +17,9 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final LabeledComponent yellowRatio;
     private final LabeledComponent blueRatio;
     private final LabeledComponent emptyRatio;
+    private final LabeledComponent probabilityOfInsectAppearance;
+    private final LabeledComponent probabilityOfWeedsAppearance;
+    private final LabeledComponent probabilityOfWeedsSpread;
     private final LabeledComponent gardenerMovement;
     private final LabeledComponent showHP;
     private final LabeledComponent showGrid;
@@ -25,7 +28,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private int movementIndex;
     private final Timer timer;
 
-    public SettingsPanel(Garden garden, Gardener gardener, boolean running) {
+    public SettingsPanel(Garden garden, Gardener gardener) {
         // Panel settings
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(new Color(245, 240, 210));
@@ -60,6 +63,19 @@ public class SettingsPanel extends JPanel implements ActionListener {
         flowersRatio.add(emptyRatio);
 
         this.add(flowersRatio);
+
+        // Insects and Weeds settings
+        JPanel insectsWeeds = new JPanel();
+        insectsWeeds.setLayout(new BoxLayout(insectsWeeds, BoxLayout.X_AXIS));
+
+        probabilityOfInsectAppearance = new LabeledComponent("% Insects", new JTextField("0.05"));
+        insectsWeeds.add(probabilityOfInsectAppearance);
+        probabilityOfWeedsAppearance = new LabeledComponent("% Weeds", new JTextField("0.05"));
+        insectsWeeds.add(probabilityOfWeedsAppearance);
+        probabilityOfWeedsSpread = new LabeledComponent("% W. Spread", new JTextField("0.005"));
+        insectsWeeds.add(probabilityOfWeedsSpread);
+
+        this.add(insectsWeeds);
 
         // Gardener movement setting
         movementText = new String[4];
@@ -97,7 +113,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         startStopButton.addActionListener(this);
 
         // Simulation settings
-        this.running = running;
+        running = false;
         int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
         timer = new Timer(delay, this);
         timer.start();
@@ -114,9 +130,9 @@ public class SettingsPanel extends JPanel implements ActionListener {
             // Garden update
             simulationPanel.getGarden().update();
 
-            simulationPanel.getGarden().insertInsect(0.05);
-            simulationPanel.getGarden().insertWeeds(0.05);
-            simulationPanel.getGarden().spreadWeeds(0.005);
+            simulationPanel.getGarden().insertInsect();
+            simulationPanel.getGarden().insertWeeds();
+            simulationPanel.getGarden().spreadWeeds();
 
             // Gardener update
             simulationPanel.getGardener().update(simulationPanel.getGarden());
@@ -177,8 +193,16 @@ public class SettingsPanel extends JPanel implements ActionListener {
         setRatioInRange(emptyRatio);
         int emptyRatioNumber = Integer.parseInt(((JTextField) emptyRatio.getComponent()).getText());
 
+        // Insects and Weeds
+        setProbabilityInRange(probabilityOfInsectAppearance);
+        double insects = Double.parseDouble(((JTextField) probabilityOfInsectAppearance.getComponent()).getText());
+        setProbabilityInRange(probabilityOfWeedsAppearance);
+        double weeds = Double.parseDouble(((JTextField) probabilityOfWeedsAppearance.getComponent()).getText());
+        setProbabilityInRange(probabilityOfWeedsSpread);
+        double weedsSpread = Double.parseDouble(((JTextField) probabilityOfWeedsSpread.getComponent()).getText());
+
         // Initialization
-        simulationPanel.setGarden(new Garden(size));
+        simulationPanel.setGarden(new Garden(size, insects, weeds, weedsSpread));
         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
         System.out.println("==================================NEW GARDEN====================================");
     }
@@ -268,6 +292,19 @@ public class SettingsPanel extends JPanel implements ActionListener {
         }
         else if(ratio < minRatio) {
             ((JTextField) labeledComponent.getComponent()).setText(Integer.toString(minRatio));
+        }
+    }
+
+    private void setProbabilityInRange(LabeledComponent labeledComponent) {
+        double probability = Double.parseDouble(((JTextField) labeledComponent.getComponent()).getText());
+        double maxProbability = 100;
+        double minProbability = 0;
+
+        if(probability > maxProbability) {
+            ((JTextField) labeledComponent.getComponent()).setText(Double.toString(maxProbability));
+        }
+        else if(probability < minProbability) {
+            ((JTextField) labeledComponent.getComponent()).setText(Double.toString(minProbability));
         }
     }
 

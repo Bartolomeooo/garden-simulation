@@ -4,6 +4,9 @@ import java.util.Random;
 public class Garden {
     private final int size;
     private final Flower[][] flowers;
+    private final double probabilityOfInsectAppearance;
+    private final double probabilityOfWeedsAppearance;
+    private final double probabilityOfWeedsSpread;
 
     private static Image weedsIcon;
     private static Image insectIcon;
@@ -11,7 +14,6 @@ public class Garden {
     public static void setInsectIcon(Image insectIcon) {
         Garden.insectIcon = insectIcon;
     }
-
     public static Image getInsectIcon() {
         return insectIcon;
     }
@@ -19,14 +21,16 @@ public class Garden {
     public static void setWeedsIcon(Image weedsIcon) {
         Garden.weedsIcon = weedsIcon;
     }
-
     public static Image getWeedsIcon() {
         return weedsIcon;
     }
 
-    public Garden(int size) {
+    public Garden(int size, double probabilityOfInsectAppearance, double probabilityOfWeedsAppearance, double probabilityOfWeedsSpread) {
         this.size = size;
         flowers = new Flower[size][size];
+        this.probabilityOfInsectAppearance = probabilityOfInsectAppearance;
+        this.probabilityOfWeedsAppearance = probabilityOfWeedsAppearance;
+        this.probabilityOfWeedsSpread = probabilityOfWeedsSpread;
     }
 
     public int getSize() {
@@ -72,7 +76,7 @@ public class Garden {
         Statistics.saveToFile("statistics/garden_simulation.txt");
     }
 
-    public void insertInsect(double probabilityOfInsectAppearance) {
+    public void insertInsect() {
         Random random = new Random();
         double randomValue = random.nextDouble();
 
@@ -86,7 +90,7 @@ public class Garden {
         }
     }
 
-    public void insertWeeds(double probabilityOfWeedsAppearance) {
+    public void insertWeeds() {
         Random random = new Random();
         double randomValue = random.nextDouble();
 
@@ -104,7 +108,7 @@ public class Garden {
         return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
     }
 
-    public void spreadWeeds(double probabilityOfWeedsSpread) {
+    public void spreadWeeds() {
         Random random = new Random();
 
         for(int y = 0; y < size; y++) {
