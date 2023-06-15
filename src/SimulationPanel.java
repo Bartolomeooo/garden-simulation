@@ -19,6 +19,10 @@ public class SimulationPanel extends JPanel {
         UNIT_SIZE = SCREEN_SIZE / garden.getSize();
         showHP = false;
         showGrid = false;
+
+        // Music
+        Audio.open();
+        Audio.playBackground();
     }
 
     public Garden getGarden() {

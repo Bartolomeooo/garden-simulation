@@ -30,7 +30,7 @@ public abstract class Gardener {
         garden.getFlowers()[positionX][positionY].setHydration(Flower.maxHydration);
         garden.getFlowers()[positionX][positionY].setHp(Flower.maxHp);
 
-        Audio.play("sounds/flower_revival_fx_16bit.wav");
+        Audio.play(Audio.getFlowerRevival());
 
         return 1;
     }

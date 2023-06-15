@@ -18,8 +18,8 @@ public class TargetingGardener extends Gardener {
             removeWeeds(garden);
             setTheTargetFlower(garden);
         } else {
+            Audio.play(Audio.getFootstep());
             moveToTheTarget(garden);
-            Audio.play("sounds/footstep_fx_16bit.wav");
         }
     }
 

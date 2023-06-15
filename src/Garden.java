@@ -64,7 +64,7 @@ public class Garden {
                     Statistics.update(flowers[x][y]);
                     if(flowers[x][y].getHp() <= 0) {
                         flowers[x][y] = null;
-                        Audio.play("sounds/flower_death_16bit.wav");
+                        Audio.play(Audio.getFlowerDeath());
                     }
                 }
             }

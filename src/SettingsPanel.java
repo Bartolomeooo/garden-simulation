@@ -23,7 +23,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
     private final JButton startStopButton;
     private final String[] movementText;
     private int movementIndex;
-    Timer timer;
+    private final Timer timer;
 
     public SettingsPanel(Garden garden, Gardener gardener, boolean running) {
         // Panel settings
@@ -101,9 +101,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
         int delay = Integer.parseInt(((JTextField) speed.getComponent()).getText());
         timer = new Timer(delay, this);
         timer.start();
-
-        // Music
-        Audio.playInLoop("sounds/background_fx_16bit.wav");
     }
 
     public SimulationPanel getSimulationPanel() {
