@@ -22,7 +22,7 @@ public abstract class Gardener {
 
     public void update(Garden garden) {}
 
-    protected int timeToHealTheFlower(Garden garden) { // How much time (ticks) gardener needs to heal the flower
+    protected int timeToHealTheFlower(Garden garden) { // - Returns how much time (ticks) gardener needs to heal the flower
         return water(garden) + removeInsects(garden) + removeWeeds(garden);
     }
 

@@ -28,16 +28,17 @@ public class TargetingGardener extends Gardener {
         Vector directionVector = makeDirectionVector(gardenerVector, targetFlower);
         //System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
 
-        Vector sum = Vector.add(gardenerVector, directionVector);
-        positionX = sum.x;
-        positionY = sum.y;
+        gardenerVector.add(directionVector);
+        positionX = gardenerVector.x;
+        positionY = gardenerVector.y;
 
         if(positionX == targetFlower.x && positionY == targetFlower.y) {
             if(garden.getFlowers()[positionX][positionY] != null) {
                 actionTimer += timeToHealTheFlower(garden);
             }
-            else
+            else{
                 setTheTargetFlower(garden);
+            }
         }
     }
 
@@ -55,7 +56,7 @@ public class TargetingGardener extends Gardener {
             }
         }
 
-        System.out.println("Target Flower: [" + minHpIndex.x + ", " + minHpIndex.y + "]");
+        //System.out.println("Target Flower: [" + minHpIndex.x + ", " + minHpIndex.y + "]");
         targetFlower = minHpIndex;
     }
 
@@ -83,7 +84,7 @@ public class TargetingGardener extends Gardener {
             vector.y = positionY; // Stay
         }
 
-        System.out.println("First Flower: [" + vector.x + ", " + vector.y + "]");
+        //System.out.println("First Flower: [" + vector.x + ", " + vector.y + "]");
         return vector;
     }
 
@@ -133,11 +134,9 @@ public class TargetingGardener extends Gardener {
             this.y = vector.y;
         }
 
-        private static Vector add(Vector first, Vector second) {
-            int x = first.x + second.x;
-            int y = first.y + second.y;
-
-            return new Vector(x, y);
+        private void add(Vector vector) {
+            x = x + vector.x;
+            y = y + vector.y;
         }
     }
 }

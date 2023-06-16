@@ -73,10 +73,15 @@ public class Garden {
                 }
             }
         }
+
+        this.insertInsect();
+        this.insertWeeds();
+        this.spreadWeeds();
+
         Statistics.saveToFile("statistics/garden_simulation.txt");
     }
 
-    public void insertInsect() {
+    private void insertInsect() {
         Random random = new Random();
         double randomValue = random.nextDouble();
 
@@ -90,7 +95,7 @@ public class Garden {
         }
     }
 
-    public void insertWeeds() {
+    private void insertWeeds() {
         Random random = new Random();
         double randomValue = random.nextDouble();
 
@@ -108,7 +113,7 @@ public class Garden {
         return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
     }
 
-    public void spreadWeeds() {
+    private void spreadWeeds() {
         Random random = new Random();
 
         for(int y = 0; y < size; y++) {
@@ -128,23 +133,6 @@ public class Garden {
                     }
                 }
             }
-        }
-    }
-
-    public void print() {
-        for(int y = 0; y < size; y++) {
-            for(int x = 0; x < size; x++) {
-                if (flowers[x][y] instanceof RedFlower) {
-                    System.out.print("R ");
-                } else if (flowers[x][y] instanceof YellowFlower) {
-                    System.out.print("Y ");
-                } else if (flowers[x][y] instanceof BlueFlower) {
-                    System.out.print("B ");
-                } else {
-                    System.out.print("X ");
-                }
-            }
-            System.out.println();
         }
     }
 }
