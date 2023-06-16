@@ -69,11 +69,11 @@ public class SettingsPanel extends JPanel implements ActionListener {
         JPanel insectsWeeds = new JPanel();
         insectsWeeds.setLayout(new BoxLayout(insectsWeeds, BoxLayout.X_AXIS));
 
-        probabilityOfInsectAppearance = new LabeledComponent("% Insects", new JTextField("0.05"));
+        probabilityOfInsectAppearance = new LabeledComponent("% Insects", new JTextField("5.0"));
         insectsWeeds.add(probabilityOfInsectAppearance);
-        probabilityOfWeedsAppearance = new LabeledComponent("% Weeds", new JTextField("0.05"));
+        probabilityOfWeedsAppearance = new LabeledComponent("% Weeds", new JTextField("5.0"));
         insectsWeeds.add(probabilityOfWeedsAppearance);
-        probabilityOfWeedsSpread = new LabeledComponent("% W. Spread", new JTextField("0.005"));
+        probabilityOfWeedsSpread = new LabeledComponent("% W. Spread", new JTextField("0.5"));
         insectsWeeds.add(probabilityOfWeedsSpread);
 
         this.add(insectsWeeds);
@@ -213,7 +213,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
         double weedsSpread = Double.parseDouble(((JTextField) probabilityOfWeedsSpread.getComponent()).getText());
 
         // Initialization
-        simulationPanel.setGarden(new Garden(size, insects, weeds, weedsSpread));
+        simulationPanel.setGarden(new Garden(size, insects/100.0, weeds/100.0, weedsSpread/100.0));
         simulationPanel.getGarden().initialize(redRatioNumber, yellowRatioNumber, blueRatioNumber, emptyRatioNumber);
         System.out.println("==================================NEW GARDEN====================================");
     }
