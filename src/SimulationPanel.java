@@ -11,9 +11,12 @@ public class SimulationPanel extends JPanel {
 
 
     SimulationPanel(Garden garden, Gardener gardener) {
+        // Panel settings
         this.setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
         this.setBackground(new Color(7, 133, 4));
         this.setFocusable(true);
+
+        // Attributes
         this.garden = garden;
         this.gardener = gardener;
         UNIT_SIZE = SCREEN_SIZE / garden.getSize();

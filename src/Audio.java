@@ -24,7 +24,7 @@ public class Audio {
         Audio.on = on;
     }
 
-    public static void open() {
+    public static void open() { // Open all audio files
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("sounds/footstep_fx_16bit.wav"));
             footstep = AudioSystem.getClip();
@@ -46,7 +46,7 @@ public class Audio {
         }
     }
 
-    public static void play(Clip clip) {
+    public static void play(Clip clip) { // Play the clip sound effect
         if(on) {
             clip.stop();
             clip.setMicrosecondPosition(0);

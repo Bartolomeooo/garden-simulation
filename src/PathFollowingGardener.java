@@ -15,18 +15,18 @@ public class PathFollowingGardener extends Gardener {
 
     @Override
     public void update(Garden garden) {
-        if(actionTimer > 0) {
+        if(actionTimer > 0) { // Gardener hasn't finished healing the flower yet
             actionTimer--;
             water(garden);
             removeInsects(garden);
             removeWeeds(garden);
-        } else {
+        } else { // Gardener has finished healing the flower so he can move
             Audio.play(Audio.getFootstep());
 
             switch (movementIndex) { // Move
                 case 1 -> moveRandomly(garden);
-                case 2 -> retractingSnakeMove(garden.getSize());
-                case 3 -> turningSnakeMove(garden.getSize());
+                case 2 -> patternMove(garden.getSize(), 1);
+                case 3 -> patternMove(garden.getSize(), 2);
             }
 
             if(garden.getFlowers()[positionX][positionY] != null) {
@@ -35,106 +35,74 @@ public class PathFollowingGardener extends Gardener {
         }
     }
 
-    private void retractingSnakeMove(int maxIndex) { // - Going the same snake-shaped path
+    private void patternMove(int maxIndex, int pattern) {
         if (verticalDirection.equals("Forward")) {
             if (horizontalDirection.equals("Right")) { // Going forward right
                 if (positionX + 1 == maxIndex) { // Out of range X
                     if (positionY + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
                         verticalDirection = "Backwards";
-                        positionX--;
-                    } else
+                        switch(pattern) {
+                            case 1 -> positionX--; // Pattern 1 - go left
+                            case 2 -> positionY--; // Pattern 2 - go up
+                        }
+                    } else {
                         positionY++;
+                    }
 
                     horizontalDirection = "Left";
-                } else
+                } else {
                     positionX++;
+                }
             } else { // Going forward left
                 if (positionX - 1 < 0) { // Out of range X
                     if (positionY + 1 == maxIndex) { // Out of range X and Y [0, maxY]
                         verticalDirection = "Backwards";
-                        positionX++;
-                    } else
+                        switch(pattern) {
+                            case 1 -> positionX++; // Pattern 1 - go right
+                            case 2 -> positionY--; // Pattern 2 - go up
+                        }
+                    } else {
                         positionY++;
+                    }
 
                     horizontalDirection = "Right";
-                } else
+                } else {
                     positionX--;
+                }
             }
         } else {
             if (horizontalDirection.equals("Right")) { // Going backwards right
                 if (positionX + 1 == maxIndex) { // Out of range X
                     if (positionY - 1 < 0) { // Out of range X and Y [maxX, 0]
                         verticalDirection = "Forward";
-                        positionX--;
-                    } else
+                        switch(pattern) {
+                            case 1 -> positionX--; // Pattern 1 - go left
+                            case 2 -> positionY++; // Pattern 2 - go down
+                        }
+                    } else {
                         positionY--;
+                    }
 
                     horizontalDirection = "Left";
-                } else
+                } else {
                     positionX++;
+                }
             } else { // Going backwards left
                 if (positionX - 1 < 0) { // Out of range X
                     if (positionY - 1 < 0) { // Out of range X and Y [0, 0]
                         verticalDirection = "Forward";
-                        positionX++;
-                    } else
+                        switch(pattern) {
+                            case 1 -> positionX++; // Pattern 1 - go right
+                            case 2 -> positionY++; // Pattern 2 - go down
+                        }
+                    } else {
                         positionY--;
+                    }
 
                     horizontalDirection = "Right";
-                } else
+                } else {
                     positionX--;
-            }
-        }
-    }
-
-    private void turningSnakeMove(int maxIndex) { // - Going the snake-shaped path with a turn (two mirrored paths)
-        if (verticalDirection.equals("Forward")) {
-            if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionX + 1 == maxIndex) { // Out of range X
-                    if (positionY + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
-                        verticalDirection = "Backwards";
-                        positionY--; //
-                    } else
-                        positionY++;
-
-                    horizontalDirection = "Left";
-                } else
-                    positionX++;
-            } else { // Going forward left
-                if (positionX - 1 < 0) { // Out of range X
-                    if (positionY + 1 == maxIndex) { // Out of range X and Y [0, maxY]
-                        verticalDirection = "Backwards";
-                        positionY--; //
-                    } else
-                        positionY++;
-
-                    horizontalDirection = "Right";
-                } else
-                    positionX--;
-            }
-        } else {
-            if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionX + 1 == maxIndex) { // Out of range X
-                    if (positionY - 1 < 0) { // Out of range X and Y [maxX, 0]
-                        verticalDirection = "Forward";
-                        positionY++; //
-                    } else
-                        positionY--;
-
-                    horizontalDirection = "Left";
-                } else
-                    positionX++;
-            } else { // Going backwards left
-                if (positionX - 1 < 0) { // Out of range X
-                    if (positionY - 1 < 0) { // Out of range X and Y [0, 0]
-                        verticalDirection = "Forward";
-                        positionY++; //
-                    } else
-                        positionY--;
-
-                    horizontalDirection = "Right";
-                } else
-                    positionX--;
+                }
             }
         }
     }

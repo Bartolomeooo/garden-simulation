@@ -11,13 +11,13 @@ public class TargetingGardener extends Gardener {
 
     @Override
     public void update(Garden garden) {
-        if(actionTimer > 0) {
+        if(actionTimer > 0) { // Gardener hasn't finished healing the flower yet
             actionTimer--;
             water(garden);
             removeInsects(garden);
             removeWeeds(garden);
             setTheTargetFlower(garden);
-        } else {
+        } else { // Gardener has finished healing the flower so he can move
             Audio.play(Audio.getFootstep());
             moveToTheTarget(garden);
         }
@@ -26,13 +26,12 @@ public class TargetingGardener extends Gardener {
     private void moveToTheTarget(Garden garden) {
         Vector gardenerVector = new Vector(positionX, positionY);
         Vector directionVector = makeDirectionVector(gardenerVector, targetFlower);
-        //System.out.println("Direction Vector: [" + directionVector.x + ", " + directionVector.y + "]");
 
         gardenerVector.add(directionVector);
         positionX = gardenerVector.x;
         positionY = gardenerVector.y;
 
-        if(positionX == targetFlower.x && positionY == targetFlower.y) {
+        if(positionX == targetFlower.x && positionY == targetFlower.y) { // He is standing on the target flower
             if(garden.getFlowers()[positionX][positionY] != null) {
                 actionTimer += timeToHealTheFlower(garden);
             }
@@ -42,7 +41,7 @@ public class TargetingGardener extends Gardener {
         }
     }
 
-    private void setTheTargetFlower(Garden garden) {
+    private void setTheTargetFlower(Garden garden) { // Target - the flower with the least amount of Hp
         Vector minHpIndex = new Vector(positionOfTheFirstFlower(garden));
 
         for(int y = minHpIndex.y; y < garden.getSize(); y++) {
@@ -56,66 +55,58 @@ public class TargetingGardener extends Gardener {
             }
         }
 
-        //System.out.println("Target Flower: [" + minHpIndex.x + ", " + minHpIndex.y + "]");
         targetFlower = minHpIndex;
     }
 
     private Vector positionOfTheFirstFlower(Garden garden) {
-        Vector vector = new Vector(-1, -1);
-        int y = 0;
+        Vector firstFlower = new Vector(-1, -1);
 
-        do{
-            int x = 0;
-            do{
+        for(int y = 0; y < garden.getSize() && firstFlower.x == -1; y++) {
+            for(int x = 0; x < garden.getSize() && firstFlower.x == -1; x++) {
                 if(garden.getFlowers()[x][y] != null) {
                     if(damageBeforeGardenerArrival(garden, x, y) < garden.getFlowers()[x][y].getHp()) // Can gardener make it on time
-                        vector = new Vector(x, y);
+                        firstFlower = new Vector(x, y);
                 }
-                x++;
-
-            }while(x < garden.getSize() && vector.x == -1);
-            y++;
-
-        }while(y < garden.getSize() && vector.x == -1);
-
-        if(vector.x == -1) {
-            System.out.println("NO FLOWERS IN THE GARDEN");
-            vector.x = positionX;
-            vector.y = positionY; // Stay
+            }
         }
 
-        //System.out.println("First Flower: [" + vector.x + ", " + vector.y + "]");
-        return vector;
+        if(firstFlower.x == -1) {
+            System.out.println("NO FLOWERS IN THE GARDEN");
+            firstFlower.x = positionX;
+            firstFlower.y = positionY; // Stay
+        }
+
+        return firstFlower;
     }
 
     private int damageBeforeGardenerArrival(Garden garden, int x, int y) { // Returns the amount of damage the flower will take until Gardener arrives based on their positions
-        return (abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick();
+        return (abs(positionX - x) + abs(positionY - y)) * garden.getFlowers()[x][y].currentDamagePerTick();  // Distance * current damage per tick
     }
 
-    private Vector makeDirectionVector(Vector start, Vector end) {
+    private Vector makeDirectionVector(Vector start, Vector end) { // [0,1], [1,0], [-1,0] or [0,-1]
         int multiplierX;
         int multiplierY;
-        Vector sum = new Vector(end.x - start.x, end.y - start.y);
+        Vector distance = new Vector(end.x - start.x, end.y - start.y);
 
-        if(sum.x >= 0)
+        if(distance.x >= 0)
             multiplierX = 1;
         else
             multiplierX = -1;
 
-        if(sum.y >= 0)
+        if(distance.y >= 0)
             multiplierY = 1;
         else
             multiplierY = -1;
 
-        sum.x *= multiplierX;
-        sum.y *= multiplierY;
+        distance.x *= multiplierX;
+        distance.y *= multiplierY;
 
-        if(sum.x >= sum.y && sum.x != 0)
+        if(distance.x >= distance.y && distance.x != 0)
             return new Vector(multiplierX, 0);
-        else if(sum.y > sum.x)
+        else if(distance.y > distance.x)
             return new Vector(0, multiplierY);
         else
-            return new Vector(0 , 0); //sum = [0, 0]
+            return new Vector(0 , 0); // distance = [0, 0]
     }
 
 

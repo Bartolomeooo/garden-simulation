@@ -11,23 +11,31 @@ public class SettingsPanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 300;
     static final int SCREEN_HEIGHT = 750;
     private boolean running;
+    private final Timer timer;
+
     private final LabeledComponent speed;
     private final LabeledComponent gardenSize;
+
     private final LabeledComponent redRatio;
     private final LabeledComponent yellowRatio;
     private final LabeledComponent blueRatio;
     private final LabeledComponent emptyRatio;
+
     private final LabeledComponent probabilityOfInsectAppearance;
     private final LabeledComponent probabilityOfWeedsAppearance;
     private final LabeledComponent probabilityOfWeedsSpread;
+
     private final LabeledComponent gardenerMovement;
-    private final LabeledComponent showHP;
-    private final LabeledComponent showGrid;
-    private final JButton startStopButton;
-    private final LabeledComponent soundEffects;
     private final String[] movementText;
     private int movementIndex;
-    private final Timer timer;
+
+    private final LabeledComponent showHP;
+    private final LabeledComponent showGrid;
+
+    private final JButton startStopButton;
+
+    private final LabeledComponent soundEffects;
+
 
     public SettingsPanel(Garden garden, Gardener gardener) {
         // Panel settings
@@ -328,8 +336,6 @@ public class SettingsPanel extends JPanel implements ActionListener {
             // Panel settings
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             this.setMaximumSize(panelDimension);
-            /*Random random = new Random();
-            this.setBackground(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));*/
             this.setBackground(new Color(245, 240, 210));
 
             // Label
@@ -349,6 +355,7 @@ public class SettingsPanel extends JPanel implements ActionListener {
                 component.setBackground(new Color(245, 240, 210));
             }
 
+            // Set component size
             component.setMaximumSize(componentDimension);
             component.setMinimumSize(componentDimension);
             component.setAlignmentX(0.5f);
