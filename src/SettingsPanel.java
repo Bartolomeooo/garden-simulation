@@ -2,7 +2,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -244,32 +243,30 @@ public class SettingsPanel extends JPanel implements ActionListener {
         Audio.setOn(((JCheckBox) soundEffects.getComponent()).isSelected());
     }
 
-    private void graphicsInit() {
+    // Scale and return an image from the given file
+    private Image scaleImage(String filename) {
         try {
-            // Flowers
-            BufferedImage image = ImageIO.read(new File("icons/red_flower.png"));
-            RedFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/blue_flower.png"));
-            BlueFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/yellow_flower.png"));
-            YellowFlower.setIconImage(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            // Weeds and Insect icons
-            image = ImageIO.read(new File("icons/weeds.png"));
-            Garden.setWeedsIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            image = ImageIO.read(new File("icons/insects.png"));
-            Garden.setInsectIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
-            // Gardener
-            image = ImageIO.read(new File("icons/gardener.png"));
-            Gardener.setGardenerIcon(image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH));
-
+            Image image = ImageIO.read(new File(filename));
+            return image.getScaledInstance(SimulationPanel.UNIT_SIZE, SimulationPanel.UNIT_SIZE, Image.SCALE_SMOOTH);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    // Set all icons
+    private void graphicsInit() {
+            // Flowers
+            RedFlower.setIconImage(scaleImage("icons/red_flower.png"));
+            BlueFlower.setIconImage(scaleImage("icons/blue_flower.png"));
+            YellowFlower.setIconImage(scaleImage("icons/yellow_flower.png"));
+
+            // Weeds and Insect icons
+            Garden.setWeedsIcon(scaleImage("icons/weeds.png"));
+            Garden.setInsectIcon(scaleImage("icons/insects.png"));
+
+            // Gardener
+            Gardener.setGardenerIcon(scaleImage("icons/gardener.png"));
     }
 
 
