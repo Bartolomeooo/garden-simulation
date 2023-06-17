@@ -1,14 +1,14 @@
 import java.util.Random;
 
 public class PathFollowingGardener extends Gardener {
-    private String horizontalDirection;
-    private String verticalDirection;
+    private int horizontalDirection;
+    private int verticalDirection;
     private final int movementIndex;
 
     public PathFollowingGardener(int movementIndex) {
         super();
-        horizontalDirection = "Right";
-        verticalDirection = "Forward";
+        horizontalDirection = 1; // 1 = go right, -1 = go left
+        verticalDirection = 1; // 1 = go down, -1 = go up
         this.movementIndex = movementIndex;
     }
 
@@ -26,8 +26,8 @@ public class PathFollowingGardener extends Gardener {
 
             switch (movementIndex) { // Move
                 case 1 -> moveRandomly(garden);
-                case 2 -> patternMove(garden.getSize(), 1);
-                case 3 -> patternMove(garden.getSize(), 2);
+                case 2 -> patternMove(garden.getSize(), 1); // Going the same snake-shaped path
+                case 3 -> patternMove(garden.getSize(), 2); // Going the snake-shaped path with a turn (two mirrored paths, "eights")
             }
 
             if(garden.getFlowers()[positionX][positionY] != null) {
@@ -36,102 +36,44 @@ public class PathFollowingGardener extends Gardener {
         }
     }
 
+
     private void patternMove(int maxIndex, int pattern) {
-        if (verticalDirection.equals("Forward")) {
-            if (horizontalDirection.equals("Right")) { // Going forward right
-                if (positionX + 1 == maxIndex) { // Out of range X
-                    if (positionY + 1 == maxIndex) { // Out of range X and Y [maxX, maxY]
-                        verticalDirection = "Backwards";
-                        switch(pattern) {
-                            case 1 -> positionX--; // Pattern 1 - go left
-                            case 2 -> positionY--; // Pattern 2 - go up
-                        }
-                    } else {
-                        positionY++;
-                    }
+        if(outOfRange(positionX + horizontalDirection, maxIndex)) { // Out of range X
+            horizontalDirection *= -1; // Change direction right - left
 
-                    horizontalDirection = "Left";
-                } else {
-                    positionX++;
+            if(outOfRange(positionY + verticalDirection, maxIndex)) { // Out of range Y
+                verticalDirection *= -1; // Change direction up - down
+                switch(pattern) {
+                    case 1 -> positionX += horizontalDirection;
+                    case 2 -> positionY += verticalDirection;
                 }
-            } else { // Going forward left
-                if (positionX - 1 < 0) { // Out of range X
-                    if (positionY + 1 == maxIndex) { // Out of range X and Y [0, maxY]
-                        verticalDirection = "Backwards";
-                        switch(pattern) {
-                            case 1 -> positionX++; // Pattern 1 - go right
-                            case 2 -> positionY--; // Pattern 2 - go up
-                        }
-                    } else {
-                        positionY++;
-                    }
-
-                    horizontalDirection = "Right";
-                } else {
-                    positionX--;
-                }
+            }
+            else {
+                positionY += verticalDirection;
             }
         } else {
-            if (horizontalDirection.equals("Right")) { // Going backwards right
-                if (positionX + 1 == maxIndex) { // Out of range X
-                    if (positionY - 1 < 0) { // Out of range X and Y [maxX, 0]
-                        verticalDirection = "Forward";
-                        switch(pattern) {
-                            case 1 -> positionX--; // Pattern 1 - go left
-                            case 2 -> positionY++; // Pattern 2 - go down
-                        }
-                    } else {
-                        positionY--;
-                    }
-
-                    horizontalDirection = "Left";
-                } else {
-                    positionX++;
-                }
-            } else { // Going backwards left
-                if (positionX - 1 < 0) { // Out of range X
-                    if (positionY - 1 < 0) { // Out of range X and Y [0, 0]
-                        verticalDirection = "Forward";
-                        switch(pattern) {
-                            case 1 -> positionX++; // Pattern 1 - go right
-                            case 2 -> positionY++; // Pattern 2 - go down
-                        }
-                    } else {
-                        positionY--;
-                    }
-
-                    horizontalDirection = "Right";
-                } else {
-                    positionX--;
-                }
-            }
+            positionX += horizontalDirection;
         }
     }
-
-    private boolean isOutOfRange(int positionX, int positionY, int maxX, int maxY) {
-        return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
-    }
-
-    private boolean isFirstTick = true;
 
     private void moveRandomly(Garden garden) {
         Random random = new Random();
         int displacementX;
         int displacementY;
 
-        if (isFirstTick) {
-            isFirstTick = false;
-            return;
-        }
 
         do {
             // Displacement varies in the range {-1, 0, 1} on both axes
             displacementX = random.nextInt(3) - 1;
             displacementY = random.nextInt(3) - 1;
         }
-        while (isOutOfRange(positionX + displacementX, positionY + displacementY, garden.getSize(), garden.getSize()) || (displacementX == 0 && displacementY == 0));
+        while (outOfRange(positionX + displacementX, garden.getSize()) || outOfRange(positionY + displacementY, garden.getSize()) || (displacementX == 0 && displacementY == 0));
 
         positionX += displacementX;
         positionY += displacementY;
+    }
+
+    private boolean outOfRange(int i, int maxIndex) {
+        return i < 0 || i >= maxIndex;
     }
 }
