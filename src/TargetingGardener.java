@@ -11,6 +11,7 @@ public class TargetingGardener extends Gardener {
 
     @Override
     public void update(Garden garden) {
+        Statistics.updateGardenerPosition(this);
         if(actionTimer > 0) { // Gardener hasn't finished healing the flower yet
             actionTimer--;
             water(garden);
