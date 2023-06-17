@@ -41,7 +41,7 @@ public class Garden {
         return flowers;
     }
 
-
+    // Initialize the garden with the passed ratio
     public void initialize(int redFlowerRatio, int yellowFlowerRatio, int blueFlowerRatio, int emptySpaceRatio) {
         Random random = new Random();
         double denominator = redFlowerRatio + yellowFlowerRatio + blueFlowerRatio + emptySpaceRatio;
@@ -59,6 +59,7 @@ public class Garden {
         }
     }
 
+    // Update the garden's state
     public void update() {
         for(int y = 0; y < size; y++) {
             for(int x = 0; x < size; x++) {
@@ -81,6 +82,7 @@ public class Garden {
         Statistics.saveToFile("statistics/garden_simulation.txt");
     }
 
+    // Insert an insect into the garden based on the specified probability
     private void insertInsect() {
         Random random = new Random();
         double randomValue = random.nextDouble();
@@ -95,6 +97,7 @@ public class Garden {
         }
     }
 
+    // Insert weeds into the garden based on the specified probability
     private void insertWeeds() {
         Random random = new Random();
         double randomValue = random.nextDouble();
@@ -109,10 +112,12 @@ public class Garden {
         }
     }
 
+    // Check if the passed coordinates are not out of the passed range
     private boolean isOutOfRange(int positionX, int positionY, int maxX, int maxY) {
         return positionX < 0 || positionX >= maxX || positionY < 0 || positionY >= maxY;
     }
 
+    // Spread weeds in the garden based on the specified probability
     private void spreadWeeds() {
         Random random = new Random();
 
