@@ -10,7 +10,7 @@ The simulation provides the following functionalities:
 
 - **Flower Management**: You can create and manipulate different types of flowers, such as red, yellow, and blue flowers. Each flower has specific attributes and behaviors.
 
-- **Insect Infestation**: Insects can appear in the garden and affect the health and growth of flowers. They can spread from one flower to another, leading to infestation if not controlled.
+- **Insect Infestation**: Insects can appear in the garden and affect the health of flowers.
 
 - **Weed Growth**: Weeds can grow in the garden and compete with flowers for resources. They can spread and occupy neighboring flower spaces if not controlled.
 
