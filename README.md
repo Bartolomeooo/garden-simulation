@@ -1,6 +1,11 @@
+![Garden Simulation](https://github.com/user-attachments/assets/dd438f51-755a-45d7-a6b8-3ce37f602f6d)
 # Flower Garden Simulation
 
 The Flower Garden Simulation is a Java program that simulates the behavior of a flower garden. It allows you to manipulate flowers, insects, and weeds within the garden, and observe their interactions and growth over time.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e38d0062-4b70-4d9f-a5c7-82b09983bd04" width="400"/>
+</div>
 
 ## Overview
 
